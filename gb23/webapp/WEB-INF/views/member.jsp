@@ -221,22 +221,21 @@ tbody {
 			<option value="genre">GENRE</option>
 			<option value="actors">ACTORS</option>
 		</select>
-			 <input type="hidden" name=mb_no value = "<%=vo.getMb_no()%>"	> 
+			 <input type="hidden" name=mb_no value ="${vo.userid}"	> 
 		 <input type="text" name=content style="margin-left: 550px; " size="50"> 
 		 <input	type="submit" value="Go">
 	</form>
-        
- <%
+		
+	
+<%
  		if(vo==null){
  %>
 
-
 <%   }else{ %>
-			우선순위 1=<%=vo.getGenre1() %><br>
-			우선순위 2=<%=vo.getGenre2() %><br>
-			우선순위 3=<%=vo.getGenre3() %><br>
+  			우선순위 1=<%=vo.getPrefergid1() %><br>
+			우선순위 2=<%=vo.getPrefergid2() %><br>
+			우선순위 3=<%=vo.getPrefergid3() %><br>
 <%	  } %>
-
 
 	
 	

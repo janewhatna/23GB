@@ -171,7 +171,7 @@ function original(){
 			<option value="genre">GENRE</option>
 			<option value="actors">ACTORS</option>
 		</select>
-			 <input type="hidden" name=mb_no value = "<%=vo.getMb_no()%>"	> 
+			 <input type="hidden" name=mb_no value = "<%=vo.getUserid()%>"	> 
 		 <input type="text" name=content style="margin-left: 550px;" size="50"> 
 		 <input	type="submit" value="Go">
 	</form>
@@ -188,10 +188,9 @@ function original(){
 
 <a href="logIn.jsp">로그인</a>
 <%   }else{ %>
-			mb_no= <%=vo.getMb_no() %><br>
-			우선순위 1=<%=vo.getGenre1() %><br>
-			우선순위 2=<%=vo.getGenre2() %><br>
-			우선순위 3=<%=vo.getGenre3() %><br>
+			우선순위 1=<%=vo.getPrefergid1() %><br>
+			우선순위 2=<%=vo.getPrefergid2() %><br>
+			우선순위 3=<%=vo.getPrefergid3() %><br>
 			<a href="update.jsp">회원정보수정하기</a>
 <%	  } %>
 	

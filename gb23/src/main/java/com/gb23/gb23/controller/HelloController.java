@@ -78,21 +78,94 @@ return "/WEB-INF/views/AAA.jsp";
 		return "/WEB-INF/views/logIn.jsp";
 	}
 	
-	@RequestMapping("/login") //logIn.jsp�뿉�꽌 db濡� ���옣�떆�궎怨� main.jspl濡� �씠�룞 
-	public String logIn2( @ModelAttribute MemberVO vo, Model model,HttpServletRequest request, HttpServletResponse response 
-							,@RequestParam("id") String id,@RequestParam("pwd") String password)throws ServletException, IOException, SQLException{
-		response.setContentType("text/html;charset=utf-8");
+	@ResponseBody
+	@RequestMapping("/login") //logIn.jsp에서 db로 저장시키고 main.jspl로 이동 
+	public Object logIn2( @ModelAttribute MemberVO vo, Model model,HttpServletRequest request, HttpServletResponse response 
+			,@RequestParam("userid") String userid,@RequestParam("passwd") String passwd)throws ServletException, IOException, SQLException{
+		System.out.println(userid+passwd);
+		MemberVO mvo = dao.logIn(userid, passwd);
+	      System.out.println(mvo);
+	      
+	      
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      
+	      if(mvo != null){
+	         if(vo.getUserid().equals(mvo.getUserid())){
+				int pqid = mvo.getMb_no();
+				map.put("no", 1);
+				map.put("userid", userid);
+				System.out.println(map);
+				return map;
+			} else{
+	        	 	map.put("no", 2);
+	   				return map;
+	         }
+	      }else{ 
+	    	 		map.put("no", 3);
+	    	 		return map;
+	    }	
+	}
 	
-	vo = dao.logIn(id, password);
-	String path = "login_fail.jsp";
-	if (vo != null) {
-		HttpSession session = request.getSession();//session maintains
-		session.setAttribute("loginInfo", vo);
+	@RequestMapping("/member/{userid}")
+	public String member(@PathVariable String userid, Model model){
+		MemberVO mvo = new MemberVO();
+		mvo = dao.logInS(userid);
+		model.addAttribute("vo",mvo);
+		System.out.println(mvo);
 		return "/WEB-INF/views/member.jsp";
 	}
-	// request�몴占� 占쎈쐷 占쎌�筌욑옙占쎈릭占쎈뮉筌잛럩�뵠 占쎄퐣甕곌쑴�걹占쎈퓠 占쎌�占쎌뒠占쎈릭占쎈뼄.
-	response.sendRedirect(path);
-	return  path;
+	
+////////////////////////////////////FINGING  Id&Pwd/////////////////////////////////////////////////////////		
+
+	@RequestMapping("/find")
+	public String contact() {
+		System.out.println("modal");
+		return "/WEB-INF/views/find.jsp";
+	}
+
+	@ResponseBody
+	@RequestMapping("/idFind")
+	public Object IdFind(MemberVO vo, @RequestParam("uname") String uname, @RequestParam("passwd") String passwd, Model model) {
+		System.out.println(vo);
+
+		MemberVO mvo = new MemberVO(uname, passwd);
+		mvo = dao.Idfind(vo);
+		System.out.println("1"+mvo);
+		System.out.println("id : " + mvo.getUserid());
+		Map<String, String> map = new HashMap<String, String>();
+
+		if (mvo.getUserid() == null) { // id 없음.
+			System.out.println("userid");
+			map.put("uname", "nothing");
+			return map;
+		} else { // id있음.
+			System.out.println("pid");
+			map.put("userid", mvo.getUserid());
+			map.put("uname", mvo.getUname());
+			return map;
+		}
+
+	}
+
+	@ResponseBody
+	@RequestMapping("/pwdFind")
+	public Object PwdFind(MemberVO vo, @RequestParam("uname") String uname, @RequestParam("userid") String userid, Model model) {
+		System.out.println(vo);
+
+		MemberVO mvo = new MemberVO(uname, userid);
+		mvo = dao.Pwdfind(vo);
+		System.out.println(mvo);
+		System.out.println("id : " + mvo.getUserid());
+		Map<String, String> map = new HashMap<String, String>();
+
+		if (mvo.getUserid() == null) { // id 없음.
+			map.put("uname", "nothing");
+			return map;
+		} else { // id있음.
+			map.put("passwd", mvo.getPasswd());
+			map.put("uname", mvo.getUname());
+			return map;
+		}
 	}
 	
 	
@@ -236,13 +309,13 @@ return "/WEB-INF/views/AAA.jsp";
 
 
 @RequestMapping("/mem_search_result")
-public String mem_search_result(@RequestParam("mb_no") int mb_no,
+public String mem_search_result(@RequestParam("userid") String userid,
 						@RequestParam("selector") String selector, 
 							@RequestParam("content") String content, Model model){
 ArrayList<MemberVO> list;
 
 try{
-	list = dao.getInfo_mem_search_result(mb_no,content);
+	list = dao.getInfo_mem_search_result(userid,content);
 	model.addAttribute("list",list);
 	System.out.println("here");
 	return"/WEB-INF/views/mem_search_result.jsp";

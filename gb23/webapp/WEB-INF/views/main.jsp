@@ -182,9 +182,6 @@ tbody {
                         <a href="#">MyPage</a>
                     </li>
                     <li>
-                        <a href="/gb23/contact">아이디/비밀번호찾기</a>
-                    </li>
-                      <li>
                         <a href="/gb23/movie_register_view">영화등록</a>
                     </li>
                    

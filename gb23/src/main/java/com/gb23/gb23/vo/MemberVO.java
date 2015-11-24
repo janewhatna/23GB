@@ -3,12 +3,31 @@ package com.gb23.gb23.vo;
 
 public class MemberVO {
 	private int mb_no;
-	private String name;
-	private String id;
-	private String pwd;
-	private String genre1;
-	private String genre2;
-	private String genre3;
+	private String uname;
+	private String userid;
+	private String passwd;
+	private int pqid;
+	private String passwdans;
+	public int getPqid() {
+		return pqid;
+	}
+
+	public void setPqid(int pqid) {
+		this.pqid = pqid;
+	}
+
+	public String getPasswdans() {
+		return passwdans;
+	}
+
+	public void setPasswdans(String passwdans) {
+		this.passwdans = passwdans;
+	}
+
+
+	private String prefergid1;
+	private String prefergid2;
+	private String prefergid3;
 	
 	private int mv_no;
 	private String title;
@@ -71,52 +90,53 @@ public class MemberVO {
 			this.mb_no = mb_no;
 	}
 
-	public String getName() {
-		return name;
+	public String getUname() {
+		return uname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 
-	public String getId() {
-		return id;
+	
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
-	public String getPwd() {
-		return pwd;
+	public String getPasswd() {
+		return passwd;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 
-	public String getGenre1() {
-		return genre1;
+	public String getPrefergid1() {
+		return prefergid1;
 	}
 
-	public void setGenre1(String genre1) {
-		this.genre1 = genre1;
+	public void setPrefergid1(String prefergid1) {
+		this.prefergid1 = prefergid1;
 	}
 
-	public String getGenre2() {
-		return genre2;
+	public String getPrefergid2() {
+		return prefergid2;
 	}
 
-	public void setGenre2(String genre2) {
-		this.genre2 = genre2;
+	public void setPrefergid2(String prefergid2) {
+		this.prefergid2 = prefergid2;
 	}
 
-	public String getGenre3() {
-		return genre3;
+	public String getPrefergid3() {
+		return prefergid3;
 	}
 
-	public void setGenre3(String genre3) {
-		this.genre3 = genre3;
+	public void setPrefergid3(String prefergid3) {
+		this.prefergid3 = prefergid3;
 	}
 
 	public int getMv_no() {
@@ -184,54 +204,58 @@ public class MemberVO {
 		super();		
 	}
 	
-	public MemberVO(String id, String pwd){
+	public MemberVO(String userid, String passwd){
 		super();
-		this.id = id;
-		this.pwd = pwd;
+		this.userid = userid;
+		this.passwd = passwd;
 	}
 	
-	public MemberVO(String name, String id, String pwd){
+	public MemberVO(String uname, String userid, String passwd){
 		super();
-		this.name = name;
-		this.id = id;
-		this.pwd = pwd;
-	}
-
-	public MemberVO(int mb_no, String name, String id, String pwd){
-		super();
-		this.mb_no= mb_no;
-		this.name = name;
-		this.id = id;
-		this.pwd = pwd;
+		this.uname = uname;
+		this.userid = userid;
+		this.passwd = passwd;
 	}
 	
-	public MemberVO(String id, String pwd, String genre1, String genre2, String genre3){
+	public MemberVO(String userid, String passwd, String prefergid1, String prefergid2, String prefergid3){
 		super();
-		this.id = id;
-		this.pwd = pwd;
-		this.genre1 = genre1;
-		this.genre2 = genre2;
-		this.genre3 = genre3;
+		this.userid = userid;
+		this.passwd = passwd;
+		this.prefergid1 = prefergid1;
+		this.prefergid2 = prefergid2;
+		this.prefergid3 = prefergid3;
 	}
-	public MemberVO(String id, String pwd, int mb_no,String genre1, String genre2, String genre3){
+	public MemberVO(String userid, String passwd, int mb_no,String prefergid1, String prefergid2, String prefergid3){
 		super();
-		this.id = id;
-		this.pwd = pwd;
+		this.userid = userid;
+		this.passwd = passwd;
 		this.mb_no = mb_no;
-		this.genre1 = genre1;
-		this.genre2 = genre2;
-		this.genre3 = genre3;
+		this.prefergid1 = prefergid1;
+		this.prefergid2 = prefergid2;
+		this.prefergid3 = prefergid3;
 	}
 	
 	
-	public MemberVO(String id, String name, String pwd, String genre1, String genre2, String genre3){
+	public MemberVO(String userid, String uname, String passwd, String prefergid1, String prefergid2, String prefergid3){
 		super();
-		this.id = id;
-		this.name = name;
-		this.pwd = pwd;
-		this.genre1 = genre1;
-		this.genre2 = genre2;
-		this.genre3 = genre3;
+		this.userid = userid;
+		this.uname = uname;
+		this.passwd = passwd;
+		this.prefergid1 = prefergid1;
+		this.prefergid2 = prefergid2;
+		this.prefergid3 = prefergid3;
+	}
+	
+	public MemberVO(String userid, String passwd, int pqid, String passwdans, String prefergid1, String prefergid2, String prefergid3, String uname){
+		super();
+		this.userid = userid;
+		this.passwd = passwd;
+		this.pqid=pqid;
+		this.passwdans=passwdans;
+		this.prefergid1 = prefergid1;
+		this.prefergid2 = prefergid2;
+		this.prefergid3 = prefergid3;
+		this.uname = uname;
 	}
 	
 	
@@ -324,16 +348,17 @@ public class MemberVO {
 		this.imgURL = imgURL;
 		this.presum = presum;
 	}
-	
-	
 
 	@Override
 	public String toString() {
-		return "MemberVO [mb_no=" + mb_no + ", name=" + name + ", id=" + id + ", pwd=" + pwd + ", genre1=" + genre1
-				+ ", genre2=" + genre2 + ", genre3=" + genre3 + ", mv_no=" + mv_no + ", title=" + title + ", genre="
-				+ genre + ", director=" + director + ", actors=" + actors + ", image=" + image + ", rating=" + rating
-				+ "presum=" + presum + "]";
+		return "MemberVO [mb_no=" + mb_no + ", uname=" + uname + ", userid=" + userid + ", passwd=" + passwd + ", pqid="
+				+ pqid + ", passwdans=" + passwdans + ", prefergid1=" + prefergid1 + ", prefergid2=" + prefergid2
+				+ ", prefergid3=" + prefergid3 + ", mv_no=" + mv_no + ", title=" + title + ", genre=" + genre
+				+ ", director=" + director + ", actors=" + actors + ", movID=" + movID + ", subTitle=" + subTitle
+				+ ", summary=" + summary + ", score=" + score + ", imgURL=" + imgURL + ", presum=" + presum + ", image="
+				+ image + ", rating=" + rating + "]";
 	}
-
+	
+	
 	
 }
