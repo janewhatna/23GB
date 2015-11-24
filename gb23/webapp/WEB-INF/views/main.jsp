@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <style type="text/css">
-
+/**/
 
 /* 		------------------------박스오피스 링크 글자----------------------------- */
 	#title a:link{
