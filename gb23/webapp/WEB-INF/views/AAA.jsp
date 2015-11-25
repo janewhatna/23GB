@@ -11,8 +11,8 @@
  		MemberVO vo=(MemberVO)session.getAttribute("loginInfo");
  %>
  
- 			우선순위 1=<%=vo.getGenre1() %><br>
-			우선순위 2=<%=vo.getGenre2() %><br>
-			우선순위 3=<%=vo.getGenre3() %><br>
+ 			우선순위 1=<%=vo.getPrefergid1() %><br>
+			우선순위 2=<%=vo.getPrefergid2() %><br>
+			우선순위 3=<%=vo.getPrefergid3() %><br>
 </body>
 </html>

@@ -21,9 +21,9 @@
 %>
 <form method="post" action="/gb23/update">
 <!-- <input type="hidden" name="command" value="update"> -->
-아이디 : <input type="text" name="id" readonly="readonly" value="<%=vo.getId() %>"><br>
-이름 : <input type="text" name="name" value="<%=vo.getName() %>"><br>
-비밀번호 : <input type="text" name="pass" value="<%=vo.getPwd() %>"><br>
+아이디 : <input type="text" name="id" readonly="readonly" value="<%=vo.getUserid() %>"><br>
+이름 : <input type="text" name="name" value="<%=vo.getUname() %>"><br>
+비밀번호 : <input type="text" name="pass" value="<%=vo.getPasswd() %>"><br>
 <input type="submit" value="확인">
 </form>
 <%
