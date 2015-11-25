@@ -162,9 +162,10 @@ public class MemberDao {
 			pstmt.setString(1, userid);	
 			pstmt.setString(2, passwd);
 			rs = pstmt.executeQuery();//
-			System.out.println("1");
+		
 			if (rs.next()) {
-				vo = new MemberVO(userid, passwd, rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+				System.out.println("11");
+				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
 			}
 		} catch (Exception e) {
 			System.out.println("2");
@@ -179,6 +180,7 @@ public class MemberDao {
 			}
 		}
 		System.out.println("5");
+		System.out.println(vo);
 		return vo;
 	}
 	

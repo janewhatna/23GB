@@ -82,29 +82,20 @@ return "/WEB-INF/views/AAA.jsp";
 	@RequestMapping("/login") //logIn.jsp에서 db로 저장시키고 main.jspl로 이동 
 	public Object logIn2( @ModelAttribute MemberVO vo, Model model,HttpServletRequest request, HttpServletResponse response 
 			,@RequestParam("userid") String userid,@RequestParam("passwd") String passwd)throws ServletException, IOException, SQLException{
-		System.out.println(userid+passwd);
-		MemberVO mvo = dao.logIn(userid, passwd);
-	      System.out.println(mvo);
-	      
-	      
-	      Map<String, Object> map = new HashMap<String, Object>();
-	      
-	      if(mvo != null){
-	         if(vo.getUserid().equals(mvo.getUserid())){
-				int pqid = mvo.getMb_no();
-				map.put("no", 1);
-				map.put("userid", userid);
-				System.out.println(map);
-				return map;
-			} else{
-	        	 	map.put("no", 2);
-	   				return map;
-	         }
-	      }else{ 
-	    	 		map.put("no", 3);
-	    	 		return map;
-	    }	
-	}
+		response.setContentType("text/html;charset=utf-8");
+		
+		vo = dao.logIn(userid, passwd);
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (vo != null) {
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginInfo", vo);
+			map.put("no", 1);
+		}
+		else
+		{	map.put("no", 2);	}
+		return map;
+		}
 	
 	@RequestMapping("/member/{userid}")
 	public String member(@PathVariable String userid, Model model){

@@ -40,7 +40,7 @@ function printData(){
 	}else{
 		document.getElementById("idck").innerHTML = "사용 가능한 아이디";
 	}
-}	
+}
 </script>
 <body>
 <!-----------------------모달 타이틀----------------------->

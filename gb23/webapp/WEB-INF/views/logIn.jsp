@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
@@ -24,7 +24,7 @@
 				success : function(response) { //성고했을 때!
 					console.log(response);
 					if( response.no == 1 ){	
-						window.location.href = "/gb23/member/"+response.userid;
+						window.location.href = "/gb23/member";
 					 }else{						 
 						alert("아이디 또는 비밀번호를 다시 확인하세요. 23GB에 등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못 입력하셨습니다.");
 						
@@ -96,7 +96,6 @@
 			$(".logIn").css("display", "none");
 		});
 	});
-	
 </script>
 </head>
 <body>
