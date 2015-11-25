@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="js/jquery-1.11.3.js"></script>
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -66,6 +68,9 @@
 		});
 	});
 </script>
+<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
 <title>23GB</title>
 <style type="text/css">
 img {
@@ -165,14 +170,16 @@ function original(){
         </div>
     </header>
 <!-- 검색창 검색창검색창검색창검색창검색창검색창검색창검색창검색창검색창검색창검색창검색창검색창검색창검색창  -->
+
+
 <form action="/gb23/mem_search_result" method="post">
 		<select id="selector" name="selector" onChange="check()">
 			<option value="title">TITLE</option>
 			<option value="genre">GENRE</option>
 			<option value="actors">ACTORS</option>
 		</select>
-			 <input type="hidden" name=mb_no value = "<%=vo.getUserid()%>"	> 
-		 <input type="text" name=content style="margin-left: 550px;" size="50"> 
+			 <input type="hidden" name=userid value ="<%=vo.getUserid()%>"	> 
+		 <input type="text" name=content style="margin-left: 550px; " size="50"> 
 		 <input	type="submit" value="Go">
 	</form>
 
@@ -203,42 +210,43 @@ function original(){
 	
 	
 <!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  -->
-	<c:forEach items="${requestScope.list}" var="mvo">
-		<div
-			style="border: 1px solid; border-width: 100; text-align: left; width: 50; height: 30; position: relative; top: 100px; left: 250px">
-			<h2>${mvo.title}
-				<!-- view단에 뜨는 제목 -->
-<!--  //////////////////////   버튼 	 //////////////////////	 -->
-				<input type="button" id="Title" value="ost" name="${mvo.title}" onclick="ost();">
-				<input type="button" id="Title" value="original" name="${mvo.title}" onclick="original();">
-			</h2>
+<!-- 검색결과출력 -->
 		
-			장르: ${mvo.genre}<br /> <!-- view단에 뜨는 장르 -->
-			감독: ${mvo.director}<br /> <!-- view단에 뜨는 감독 -->
-			배우: ${mvo.actors}<br /> <!-- view단에 뜨는 배우 -->
-<!--  /////////////////이미지버튼 (디테일뷰 go)////////////////////// -->
-		<form action="/gb23/detail_view" method="post">
-			<TEXTAREA style="display:none" NAME=content COLS=20 ROWS=1>${mvo.getTitle()}</TEXTAREA>
-			<input type="image" src=${mvo.getImage()} width="100" height="100" >
-		</form> 	
-
-<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->		
+<div style="margin:0 auto; width:1000px;">		
+ <ul class="pagination1">
+	<c:forEach items="${requestScope.list}" var="mvo">
+		<li>
+			<div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+				<h2>${mvo.title}
+					<!-- view단에 뜨는 제목 -->
+	<!--  //////////////////////   버튼 	 //////////////////////	 -->
+					<input type="button" id="Title" value="ost" name="${mvo.title}" onclick="ost();">
+					<input type="button" id="Title" value="original" name="${mvo.title}" onclick="original();">
+				</h2>
+				<img src=${mvo.imgURL} width="100" height="100" data-toggle="modal" id="cuteBoy" href ="/gb23/detail_view/${mvo.movID}" data-target="#myModal"> <!-- view단에 뜨는 이미지  -->
+				장르: ${mvo.title}<br /> <!-- view단에 뜨는 장르 -->
+				감독: ${mvo.subTitle}<br /> <!-- view단에 뜨는 감독 -->
+				배우: ${mvo.presum}<br /> <!-- view단에 뜨는 배우 -->
 	
-			<div class="btn-group" data-no="${mvo.mv_no}">
-				<input type="image" src="img/heart_l_blur.png" onfocus='this.blur()' name="rating" value="1"> 
-				<input type="image" src="img/heart_r_blur.png" onfocus='this.blur()' name="rating" value="2" style="margin-left: -6.5px;"> 
-				<input type="image" src="img/heart_l_blur.png" onfocus='this.blur()' name="rating" value="3"> 
-				<input type="image" src="img/heart_r_blur.png" onfocus='this.blur()' name="rating" value="4" style="margin-left: -6.5px;"> 
-				<input type="image" src="img/heart_l_blur.png" onfocus='this.blur()' name="rating" value="5"> 
-				<input type="image" src="img/heart_r_blur.png" onfocus='this.blur()' name="rating" value="6" style="margin-left: -6.5px;"> 
-				<input type="image" src="img/heart_l_blur.png" onfocus='this.blur()' name="rating" value="7"> 
-				<input type="image" src="img/heart_r_blur.png" onfocus='this.blur()' name="rating" value="8" style="margin-left: -6.5px;"> 
-				<input type="image" src="img/heart_l_blur.png" onfocus='this.blur()' name="rating" value="9"> 
-				<input type="image" src="img/heart_r_blur.png" onfocus='this.blur()' name="rating" value="10" style="margin-left: -6.5px;">
-			
+	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->		
+		
+				<div class="btn-group" data-no="${mvo.mv_no}">
+					<input type="image" src="img/heart_l_blur.png" name="rating" value="1"> 
+					<input type="image" src="img/heart_r_blur.png" name="rating" value="2" style="margin-left: -6.3px;"> 
+					<input type="image" src="img/heart_l_blur.png" name="rating" value="3"> 
+					<input type="image" src="img/heart_r_blur.png" name="rating" value="4" style="margin-left: -6px;"> 					
+					<input type="image" src="img/heart_l_blur.png" name="rating" value="5"> 
+					<input type="image" src="img/heart_r_blur.png" name="rating" value="6" style="margin-left: -6.2px;"> 
+					<input type="image" src="img/heart_l_blur.png" name="rating" value="7"> 
+					<input type="image" src="img/heart_r_blur.png" name="rating" value="8" style="margin-left: -6px;"> 
+					<input type="image" src="img/heart_l_blur.png" name="rating" value="9"> 
+					<input type="image" src="img/heart_r_blur.png" name="rating" value="10" style="margin-left: -6px;">
+				</div>
 			</div>
-		</div>
+		</li>
 	</c:forEach>
+</ul>
+</div>
 	
 </body>
 </html>

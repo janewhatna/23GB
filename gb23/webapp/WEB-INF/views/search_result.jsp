@@ -198,6 +198,7 @@ $(document).ready(function() {
 	<input type="submit" value="Go">
 </form>
 
+<!-- 검색결과출력 -->
 		
 <div style="margin:0 auto; width:1000px;">		
  <ul class="pagination1">
