@@ -24,8 +24,6 @@ public class MemberVO {
 		this.passwdans = passwdans;
 	}
 
-	
-	
 	//////////새로운 조인///////////////
 	private String userID;
 

@@ -37,7 +37,14 @@ public class HelloController extends HttpServlet {
 	
 	
 	@RequestMapping( "/main" )
-	public String hello( ) {
+	public String hello(Model model) {
+		//Boxoffice Infomation
+		ArrayList<Boxoffice> bKorea, bUsa;
+		bKorea = dao.getBoxoffice("KOR");
+		bUsa = dao.getBoxoffice("USA");
+		model.addAttribute("bKorea", bKorea);
+		model.addAttribute("bUsa", bUsa);
+		
 		return "/WEB-INF/views/main.jsp";  //forwarding
 	}
 	
@@ -45,7 +52,13 @@ public class HelloController extends HttpServlet {
 	/////////////////////member-main///////////////////////
 	
 	@RequestMapping( "/member" )
-	public String member( ) {
+	public String member(Model model) {
+		//Boxoffice Infomation
+		ArrayList<Boxoffice> bKorea, bUsa;
+		bKorea = dao.getBoxoffice("KOR");
+		bUsa = dao.getBoxoffice("USA");
+		model.addAttribute("bKorea", bKorea);
+		model.addAttribute("bUsa", bUsa);
 		return "/WEB-INF/views/member.jsp";  //forwarding
 	}
 	
@@ -83,6 +96,7 @@ return "/WEB-INF/views/main.jsp";
 		
 		vo = dao.logIn(userid, passwd);
 		Map<String, Object> map = new HashMap<String, Object>();
+
 		if (vo != null) {
 			
 			HttpSession session = request.getSession();
@@ -91,6 +105,7 @@ return "/WEB-INF/views/main.jsp";
 		}
 		else
 		{	map.put("no", 2);	}
+		
 		return map;
 		}
 	
@@ -100,6 +115,7 @@ return "/WEB-INF/views/main.jsp";
 		mvo = dao.logInS(userid);
 		model.addAttribute("vo",mvo);
 		System.out.println(mvo);
+		
 		return "/WEB-INF/views/member.jsp";
 	}
 	
@@ -247,16 +263,7 @@ return "/WEB-INF/views/main.jsp";
 		model.addAttribute("list",list);
 		return"/WEB-INF/views/detail_view.jsp";
 	}	
-	
-	@RequestMapping("/boxoffice")
-	public Boxoffice boxoffice(Model model, @RequestParam("boxoffice") Boxoffice getBoxoffice){
-		ArrayList<MemberVO> list;
-		
-//		getBoxoffice = dao.getBoxoffice("kor", getBoxoffice);
-//		getBoxoffice = dao.getBoxoffice("usa", getBoxoffice);
-		
-		return getBoxoffice;
-	}
+
 	/////////////////////////////硫붿씤�쑝濡� ///////////////////////////////////////////////
 	
 	@RequestMapping( "/gomain" )
