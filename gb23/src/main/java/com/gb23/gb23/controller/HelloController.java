@@ -51,25 +51,21 @@ public class HelloController extends HttpServlet {
 	
 	
 //////////////////////////////////// JOIN /////////////////////////////////////////////////////////
-	@RequestMapping("/joinForm")
-	public String joinf(){
-		return "/WEB-INF/views/join.jsp";
-	}
+////////////////////////////////////JOIN /////////////////////////////////////////////////////////
+@RequestMapping("/joinForm")
+public String joinf(){
+return "/WEB-INF/views/join.jsp";
+}
 
-	@RequestMapping("/join") //join.jsp�뿉�꽌 db濡� ���옣�떆�궎怨� main.jsp濡� �씠�룞
-	public String join( @ModelAttribute MemberVO vo, Model model  ){
-		
-		int num = dao.MemberNum();
-		vo.setMb_no(num);
-		dao.insert(vo);
-		model.addAttribute("vo", vo);
-		System.out.println( vo );
-		return "/WEB-INF/views/main.jsp";
-	}	
-	
-@RequestMapping("/aaa")
-public String aaa(){
-return "/WEB-INF/views/AAA.jsp";
+@RequestMapping("/join") //join.jsp�뿉�꽌 db濡� ���옣�떆�궎怨� main.jsp濡� �씠�룞
+public String join( @ModelAttribute MemberVO vo, Model model  ){
+
+/*	int num = dao.MemberNum();*/
+/*	vo.setMb_no(num);*/
+dao.insert(vo);
+model.addAttribute("vo", vo);
+System.out.println( vo );
+return "/WEB-INF/views/main.jsp";
 }	
 
 ////////////////////////////////LOG-IN //////////////////////////////
@@ -386,5 +382,20 @@ public String movie_Register(@RequestParam("movID") int movID,
 	
 }	
 ///////////////////////////////////////////////////////////////////////////////////////	
+@RequestMapping("/Idcheck")
+public void Idcheck(@RequestParam("userID") String userID, HttpServletResponse res)
+throws Exception {
+	System.out.println(userID+"11");
+String uid = dao.idcheck(userID);
+PrintWriter out = res.getWriter();
+
+if(uid == null){
+out.print("false");
+}else{
+out.print("true");
+}
+
+out.close();
+}
 
 }

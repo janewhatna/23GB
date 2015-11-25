@@ -56,20 +56,21 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "insert into member(mb_no,userid,passwd,uname,prefergid1,prefergid2,prefergid1) " + "values(?,?,?,?,?,?,?)";
+			String sql = "insert into movie_user (userid,passwd,pqid,passwdans,prefergid1,prefergid2,prefergid3)" +
+					"values(?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 
-			pstmt.setInt(1, vo.getMb_no());
-			pstmt.setString(2, vo.getUserid());
-			pstmt.setString(3, vo.getPasswd());
-			pstmt.setString(4, vo.getUname());
-			pstmt.setString(5, vo.getPrefergid1());
-			pstmt.setString(6, vo.getPrefergid2());
-			pstmt.setString(7, vo.getPrefergid1());
+			pstmt.setString(1, vo.getUserID());
+			pstmt.setString(2, vo.getPasswd());
+			pstmt.setInt(3, vo.getPqID());
+			pstmt.setString(4, vo.getPasswdAns());
+			pstmt.setString(5, vo.getPreferGID1());
+			pstmt.setString(6, vo.getPreferGID2());
+			pstmt.setString(7, vo.getPreferGID3());
 			int result = pstmt.executeUpdate();
 			
 			System.out.println("insert result:" +result) ;
-			System.out.println(vo);
+			System.out.println(vo+"ddd");
 			
 			} catch (Exception e) {
 			System.out.println("not working");
@@ -713,5 +714,29 @@ public class MemberDao {
 				}
 		   }
 	////////////////////////////////////////////////////////////////////////////////////
-
+	   public String idcheck(String userID){
+		   Connection con = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rs = null;
+		   String uid = null;
+		   String sql = "select userID from movie_user where userID=?";
+			try {
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, userID);
+				rs = pstmt.executeQuery();
+				while(rs.next()){
+					System.out.println("3");
+					uid = rs.getString(1);
+					}
+			} catch (Exception e) {
+				System.out.println(e);
+			} finally {
+				closeAll(rs, pstmt, con);
+			}
+			System.out.println(uid);
+			return uid;
+		}
 }

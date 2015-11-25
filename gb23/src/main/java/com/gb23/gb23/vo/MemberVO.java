@@ -24,7 +24,89 @@ public class MemberVO {
 		this.passwdans = passwdans;
 	}
 
+	
+	
+	//////////새로운 조인///////////////
+	private String userID;
 
+	private int pqID;
+	private String passwdAns;
+	private String preferGID1;
+	private String preferGID2;
+	private String preferGID3;
+	
+	
+	
+	public MemberVO(String userID, String passwd, int pqID, String passwdAns, String preferGID1, String preferGID2,
+			String preferGID3) {
+		super();
+		this.userID = userID;
+		this.passwd = passwd;
+		this.pqID = pqID;
+		this.passwdAns = passwdAns;
+		this.preferGID1 = preferGID1;
+		this.preferGID2 = preferGID2;
+		this.preferGID3 = preferGID3;
+	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+	public String getPasswd() {
+		return passwd;
+	}
+
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+
+	public int getPqID() {
+		return pqID;
+	}
+
+	public void setPqID(int pqID) {
+		this.pqID = pqID;
+	}
+
+	public String getPasswdAns() {
+		return passwdAns;
+	}
+
+	public void setPasswdAns(String passwdAns) {
+		this.passwdAns = passwdAns;
+	}
+
+	public String getPreferGID1() {
+		return preferGID1;
+	}
+
+	public void setPreferGID1(String preferGID1) {
+		this.preferGID1 = preferGID1;
+	}
+
+	public String getPreferGID2() {
+		return preferGID2;
+	}
+
+	public void setPreferGID2(String preferGID2) {
+		this.preferGID2 = preferGID2;
+	}
+
+	public String getPreferGID3() {
+		return preferGID3;
+	}
+
+	public void setPreferGID3(String preferGID3) {
+		this.preferGID3 = preferGID3;
+	}
+
+	/////////////////////////////////////////
+	
 	private String prefergid1;
 	private String prefergid2;
 	private String prefergid3;
@@ -107,13 +189,6 @@ public class MemberVO {
 		this.userid = userid;
 	}
 
-	public String getPasswd() {
-		return passwd;
-	}
-
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
 
 	public String getPrefergid1() {
 		return prefergid1;
@@ -358,7 +433,4 @@ public class MemberVO {
 				+ ", summary=" + summary + ", score=" + score + ", imgURL=" + imgURL + ", presum=" + presum + ", image="
 				+ image + ", rating=" + rating + "]";
 	}
-	
-	
-	
 }
