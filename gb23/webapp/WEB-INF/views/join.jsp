@@ -91,8 +91,8 @@ function pwdcheck(){
 			비밀번호 <input type="password"	name="passwd" id="passwd" onblur="pwdcheck()"><br/> 
 			비밀번호확인 <input type="password" name="passwd2" id="passwd2" onblur="pwdcheck()">
 			<span id="pw_checker"></span><br/>
-			비밀번호힌트 <select id="selectBox" name="pqID">
-			<option selected>비밀번호 힌트</option>
+			비밀번호 질문 <select id="selectBox" name="pqID">
+			<option selected>비밀번호 질문</option>
 			<option value="1">2015년 애인의 유무?</option>
 			<option value="2">가장 기억에 남는 별명?</option>
 			<option value="3">가장 친한 친구의 이름?</option>
