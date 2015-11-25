@@ -118,9 +118,11 @@ tbody {
 	///////////////////Modal 속성 지정///////////////////	
 		function setModal($input)
 		{
+			$('#myModal').find('.modal-content').html('');	//모달을 켰을 시 이전에 있던 모달 데이터 초기화
 			$input.attr("data-toggle", "modal");
 			$input.attr("data-target", "#myModal");
 		}
+
 </script>
 <%
 	Boxoffice box = new Boxoffice(request);
