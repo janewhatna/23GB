@@ -65,18 +65,10 @@ tbody {
 	
 	///////////////////박스오피스 시간 마다 나라 바뀌게 해줌///////////////////
 	var nowTime = 0;
-	var check = true;
 	var jfunctionKOR = null;
 	var jfunctionUSA = null;
 
 	function GetTime() {
-		if (check) {
-			document.getElementById("boxoffice_kor").style.display = "";
-			document.getElementById("boxoffice_usa").style.display = "none";
-			document.getElementById("nation").innerHTML = "한국 순위";
-			check = false;
-		}
-
 		if (nowTime >= 3) {
 			nowTime = 0;
 			switchNation();
@@ -217,7 +209,7 @@ tbody {
 	
 <!-- 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼  -->
 <table id = "boxoffice">	
-	<tr>	<th width = "80" id = "nation"></th>	<th  width = "100">영화명</th>	</tr>
+	<tr>	<th width = "80" id = "nation">한국 순위</th>	<th  width = "100">영화명</th>	</tr>
 	<tbody id = "boxoffice_kor">
 		<tr><td id = "rank"><img src="img/1.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(0, "kor")%></a></td></tr>
 		<tr><td id = "rank"><img src="img/2.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(1, "kor")%></a></td></tr>
@@ -230,7 +222,7 @@ tbody {
 		<tr><td id = "rank"><img src="img/9.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(8, "kor")%></a></td></tr>
 		<tr><td id = "rank"><img src="img/10.png"></td> 	<td id = "title"><a href = ""><%=box.getTitle(9, "kor")%></a></td></tr>
 	</tbody>
-	<tbody id = "boxoffice_usa">
+	<tbody id = "boxoffice_usa"  style="display:none">
 		<tr><td id = "rank"><img src="img/1.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(0, "usa")%></a></td></tr>
 		<tr><td id = "rank"><img src="img/2.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(1, "usa")%></a></td></tr>
 		<tr><td id = "rank"><img src="img/3.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(2, "usa")%></a></td></tr>
