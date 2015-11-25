@@ -14,25 +14,26 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gb23.gb23.dao.MemberDao;
+
 public class Boxoffice 
 {
 	static HttpServletRequest request;
-	static String[] link_kor;
+	static String[] img_kor;
 	static String[] title_kor;
-	static String[] link_usa;
+	static String[] img_usa;
 	static String[] title_usa;
-	static String nation = "kor";
+	private MemberDao dao;
 	
 	public Boxoffice(HttpServletRequest request) {
 		super();
 		this.request = request;
-		putTitle("kor");
-		putTitle("usa");
+		dao.getBoxoffice("kor");
+		dao.getBoxoffice("usa");
 	}
 	
 	public static String[] getTitle(String nation)					//타이틀 배열 전체 가져옴
     {	
-		
 		if(nation.equals("kor"))
 		{	return title_kor; 	}
 		
@@ -48,6 +49,30 @@ public class Boxoffice
 		else
 		{	return title_usa[num];	}    
     }
+	
+	//dao에서 가져온 타이틀
+	public static void setTitle(String nation, List<String> array)			
+    {	
+    	//리스트를 배열로 변환시켜서 나라에 맞춰 넣음
+		if(nation.equals("kor"))
+		{	title_kor = array.toArray(new String[array.size()]);	}
+		
+		else
+		{	title_usa = array.toArray(new String[array.size()]);	}
+    }
+	
+	//dao에서 가져온 이미지
+	public static void setImg(String nation, List<String> array)			
+    {	
+    	//리스트를 배열로 변환시켜서 나라에 맞춰 넣음
+		if(nation.equals("kor"))
+		{	img_kor = array.toArray(new String[array.size()]);	}
+		
+		else
+		{	img_usa = array.toArray(new String[array.size()]);	}
+    }
+	
+	
 	
 	//순위 타이틀 설정
     static void putTitle(String nation)

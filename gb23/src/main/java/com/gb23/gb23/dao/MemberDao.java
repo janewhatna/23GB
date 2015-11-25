@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.gb23.gb23.vo.MemberVO;
+
+import Boxoffice.Boxoffice;
 
 
 @Repository
@@ -738,5 +741,35 @@ public class MemberDao {
 			}
 			System.out.println(uid);
 			return uid;
+		}
+	   
+	   
+	   public void getBoxoffice(String nation){
+		   Connection con = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rs = null;
+		   List<String> title = null;
+		   List<String> img = null;
+		   Boxoffice box = null;
+		   String sql = "select btitle, imgurl from BOXOFFICE_" + nation + "order by bID;";
+		   System.out.println("getBoxoffice : "+sql);
+			try {
+				System.out.println("getBoxoffice - Put Data");
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				while(rs.next()){
+					System.out.println("getBoxoffice - Put Data");
+					title.add(rs.getString(1));
+					img.add(rs.getString(2));
+					}
+			} catch (Exception e) {
+				System.out.println(e);
+			} finally {
+				closeAll(rs, pstmt, con);
+			}
+			box.setTitle(nation, title);
+			box.setImg(nation, img);
 		}
 }
