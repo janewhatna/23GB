@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gb23.gb23.dao.MemberDao;
 import com.gb23.gb23.vo.MemberVO;
 
+import Boxoffice.Boxoffice;
 import url.url;
 
 @Controller
@@ -247,6 +248,15 @@ return "/WEB-INF/views/main.jsp";
 		return"/WEB-INF/views/detail_view.jsp";
 	}	
 	
+	@RequestMapping("/boxoffice")
+	public Boxoffice boxoffice(Model model, @RequestParam("boxoffice") Boxoffice getBoxoffice){
+		ArrayList<MemberVO> list;
+		
+//		getBoxoffice = dao.getBoxoffice("kor", getBoxoffice);
+//		getBoxoffice = dao.getBoxoffice("usa", getBoxoffice);
+		
+		return getBoxoffice;
+	}
 	/////////////////////////////硫붿씤�쑝濡� ///////////////////////////////////////////////
 	
 	@RequestMapping( "/gomain" )

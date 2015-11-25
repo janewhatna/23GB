@@ -23,13 +23,10 @@ public class Boxoffice
 	static String[] title_kor;
 	static String[] img_usa;
 	static String[] title_usa;
-	private MemberDao dao;
+	MemberDao dao;
 	
 	public Boxoffice(HttpServletRequest request) {
 		super();
-		this.request = request;
-		dao.getBoxoffice("kor");
-		dao.getBoxoffice("usa");
 	}
 	
 	public static String[] getTitle(String nation)					//타이틀 배열 전체 가져옴

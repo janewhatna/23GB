@@ -744,32 +744,33 @@ public class MemberDao {
 		}
 	   
 	   
-	   public void getBoxoffice(String nation){
-		   Connection con = null;
-		   PreparedStatement pstmt = null;
-		   ResultSet rs = null;
-		   List<String> title = null;
-		   List<String> img = null;
-		   Boxoffice box = null;
-		   String sql = "select btitle, imgurl from BOXOFFICE_" + nation + "order by bID;";
-		   System.out.println("getBoxoffice : "+sql);
-			try {
-				System.out.println("getBoxoffice - Put Data");
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				while(rs.next()){
-					System.out.println("getBoxoffice - Put Data");
-					title.add(rs.getString(1));
-					img.add(rs.getString(2));
-					}
-			} catch (Exception e) {
-				System.out.println(e);
-			} finally {
-				closeAll(rs, pstmt, con);
-			}
-			box.setTitle(nation, title);
-			box.setImg(nation, img);
-		}
+//	   public Boxoffice getBoxoffice(String nation, String getBoxoffice){
+//		   Connection con = null;
+//		   PreparedStatement pstmt = null;
+//		   ResultSet rs = null;
+//		   List<String> title = null;
+//		   List<String> img = null;
+//		   String sql = "select btitle, imgurl from BOXOFFICE_" + nation + "order by bID;";
+//		   System.out.println("getBoxoffice : "+sql);
+//			try {
+//				System.out.println("getBoxoffice - Put Data");
+//				Class.forName("oracle.jdbc.driver.OracleDriver");
+//		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+//				pstmt = con.prepareStatement(sql);
+//				rs = pstmt.executeQuery();
+//				while(rs.next()){
+//					System.out.println("getBoxoffice - Put Data");
+//					title.add(rs.getString(1));
+//					img.add(rs.getString(2));
+//					}
+//			} catch (Exception e) {
+//				System.out.println(e);
+//			} finally {
+//				closeAll(rs, pstmt, con);
+//			}
+//			getBoxoffice.setTitle(nation, title);
+//			getBoxoffice.setImg(nation, img);
+//			
+//			return getBoxoffice;
+//		}
 }

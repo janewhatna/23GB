@@ -62,20 +62,41 @@ tbody {
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
-	
+
+<%
+Boxoffice box = new Boxoffice(request);
+%>
+<!-- 현재 리퀘스트로 객체 생성 -->
 	///////////////////박스오피스 시간 마다 나라 바뀌게 해줌///////////////////
 	var nowTime = 0;
 	var jfunctionKOR = null;
 	var jfunctionUSA = null;
-
+	var start = true;
 	function GetTime() {
+// 		if(start)
+// 		{
+// 			$.ajax({
+// 				url : "/gb23/boxoffice", //url
+<%-- 				data : "boxoffice=" + <%=box%>, //넘겨야 할 데이터   --%>
+// 				type : "get",
+// 				dataType : "json",
+// 				success : function(response) { //성고했을 때!
+//  					console.log(response);
+// 					result = response;
+// 				},
+// 				error : function(jqXHR, status, e) { //실패
+// 					console.error(status + " : " + e);
+// 				}
+// 			});
+// 			start = false;	
+// 		}
+		
 		if (nowTime >= 3) {
 			nowTime = 0;
 			switchNation();
 		} else {
 			nowTime += 1;
 		}
-		//document.getElementById("nowTime").value = nowTime + "초 ";
 		setTimeout("GetTime()", 1000);
 	}
 	function switchNation() {
@@ -124,10 +145,7 @@ tbody {
 		}
 
 </script>
-<%
-// 	Boxoffice box = new Boxoffice(request);
-%>
-<!-- 현재 리퀘스트로 객체 생성 -->
+
 <title>23GB</title>
 
 

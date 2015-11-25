@@ -18,7 +18,12 @@ function createAjax(){
 
 function idcheck(){
 	createAjax();
-	var userID = document.getElementById("userID").value;
+	var userID = document.getElementById("userID").value.trim();
+	if(userID == ""){
+	      alert("아이디를 입력해주세요.");
+	      return;
+	   }
+	   createAjax();
 	xmlReq.onreadystatechange = checking;
 	xmlReq.open("get", "/gb23/Idcheck?userID="+userID, true);
 	xmlReq.send(null);
