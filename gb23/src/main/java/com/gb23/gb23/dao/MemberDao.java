@@ -433,7 +433,7 @@ public class MemberDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
 			String sql =" select movie.* from (select mid, gid, p1, p2, p3 from (select ROW_NUMBER() over (PARTITION BY genre.MOVID order by genre.MOVID) as Myrow, genre.MOVID as mid, genre.gid as gid, g.prefergid1 as p1, g.prefergid2 as p2, g.prefergid3 as p3 from  genre, (select * from movie_user where movie_user.userid='"+userid+
-						"') g) where Myrow = 1 order by DECODE(gid, p1, 1, p2, 2, p3, 3)), movie where mid in movie.movid and title like '%"+content+"%'";
+						"') g) where Myrow = 1 order by DECODE(gid, p1, 1, p2, 2, p3, 3)), movie where mid in movie.movid and  replace(title, ' ', '') like replace('%"+content+"%', ' ', '')";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery(); // query�� ����
