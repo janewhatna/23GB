@@ -186,6 +186,9 @@ tbody {
                       <li>
                         <a href="/gb23/movie_register_view">영화등록</a>
                     </li>
+                    <il>
+                    <a href="/gb23/update_form"><input type="button" value="회원정보수정하기"></a>
+                    </il>
                    <li>
                    <form action="/gb23/logout" method="post">
  					<input	type="submit" value="logout">

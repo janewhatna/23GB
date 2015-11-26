@@ -187,10 +187,19 @@ return "/WEB-INF/views/main.jsp";
 	}
 	}	
 	
-////////////////////////////////////UPDATE /////////////////////////////////////////////////////////	
+////////////////////////////////////UPDATE_FORM /////////////////////////////////////////////////////////	
 	@RequestMapping("/update_form")
-	public String update(){
+	public String update(@ModelAttribute MemberVO vo, Model model ){
 		return "/WEB-INF/views/update.jsp";
+	}
+////////////////////////////////////update/////////////////////////////////////////////////////////	
+	@RequestMapping("/update")
+	public String updateInfo(HttpServletRequest request, MemberVO vo){
+	System.out.println("update controller");
+	dao.updateMypage(vo);
+	HttpSession session = request.getSession();
+	session.setAttribute("loginInfo", vo);
+	return "/WEB-INF/views/member.jsp";
 	}
 	
 

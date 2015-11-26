@@ -63,7 +63,7 @@ public class MemberDao {
 					+ "values(?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 
-			pstmt.setString(1, vo.getUserID());
+			pstmt.setString(1, vo.getUserid());
 			pstmt.setString(2, vo.getPasswd());
 			pstmt.setInt(3, vo.getPqID());
 			pstmt.setString(4, vo.getPasswdAns());
@@ -159,7 +159,7 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "select userid, passwd ,prefergid1, prefergid2, prefergid3 from movie_user where userid=? and passwd=?";
+			String sql = "select userid, passwd, pqid, passwdans, prefergid1, prefergid2, prefergid3, uname from movie_user where userid=? and passwd=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, userid);
 			pstmt.setString(2, passwd);
@@ -167,7 +167,7 @@ public class MemberDao {
 
 			if (rs.next()) {
 				System.out.println("11");
-				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getString(7), rs.getString(8));
 			}
 		} catch (Exception e) {
 			System.out.println("2");
@@ -200,7 +200,7 @@ public class MemberDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getUname());
 			pstmt.setString(2, vo.getUserid());
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 			System.out.println("1");
 			while (rs.next()) {
 				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getString(3));
@@ -314,7 +314,7 @@ public class MemberDao {
 			String sql = "select * from movie where title like '%" + content + "%'";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
@@ -345,7 +345,7 @@ public class MemberDao {
 					+ content + "%'))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
@@ -376,7 +376,7 @@ public class MemberDao {
 					+ content + "%'))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
@@ -408,7 +408,7 @@ public class MemberDao {
 					+ "%' and actors like '%" + actors + "%'";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
@@ -442,7 +442,7 @@ public class MemberDao {
 					+ content + "%', ' ', '')";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
@@ -473,7 +473,7 @@ public class MemberDao {
 			String sql = "select * from movie where title like '%" + content + "%'";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
@@ -504,7 +504,7 @@ public class MemberDao {
 			String sql = "select * from movie where mv_no = '" + mv_no + "'";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
@@ -522,7 +522,7 @@ public class MemberDao {
 		return list;
 	}
 
-	///////////////////// 영화등록///////////////////////////
+	///////////////////// �쁺�솕�벑濡�///////////////////////////
 	public void movie_register(int movID, String title, String subTitle, String summary, int score, String imgURL) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -761,5 +761,36 @@ public class MemberDao {
 		}
 		return list;
 	}
-
+	public void updateMypage(MemberVO vo) {
+		System.out.println("--------------"+vo.getUserid());
+		System.out.println(vo.getPreferGID1());
+		System.out.println(vo.getPreferGID2());
+		System.out.println(vo.getPreferGID3());
+		System.out.println(vo.getPasswd());
+		System.out.println(vo.getPqid());
+		System.out.println(vo.getPasswdans()+"--------------");
+		   Connection con = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rs = null;
+		   String id = null;
+		   String sql = "update movie_user set passwd=?, pqid=?, passwdans=?, preferGID1=?, preferGID2=?, preferGID3=? where userid=?";
+			try {
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getPasswd());
+				pstmt.setInt(2, vo.getPqid());
+				pstmt.setString(3, vo.getPasswdans());
+				pstmt.setString(4, vo.getPreferGID1());
+				pstmt.setString(5, vo.getPreferGID2());
+				pstmt.setString(6, vo.getPreferGID3());
+				pstmt.setString(7, vo.getUserid());
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				System.out.println(e);
+			} finally {
+				closeAll(rs, pstmt, con);
+			}
+}
 }

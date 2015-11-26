@@ -102,7 +102,7 @@ function pwdcheck(){
 			<option value="7">싫어하는 영화 제목 또는 감독</option>
 			</select>
 			<br /> 
-			비밀번호답변 <input type="text" name="passwdAns" id="passwdAns"><br/> 
+			비밀번호답변 <input type="text" name="passwdans" id="passwdans"><br/> 
 			<br>
 			<hr>
 			<h2>좋아하는 장르 선택</h2>
