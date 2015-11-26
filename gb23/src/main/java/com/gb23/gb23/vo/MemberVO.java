@@ -268,10 +268,47 @@ public class MemberVO {
 		this.presum = presum;
 	}
 
-
 	private String image;
 	private int rating;
+	private String releaseDate;
+	private int runningTime;
+	private int scoreCnt;
+	private int viewCount;
+	private int totalScore;
+	String detailURL;
 	
+
+	public int getScoreCnt() {
+		return scoreCnt;
+	}
+
+	public void setScoreCnt(int scoreCnt) {
+		this.scoreCnt = scoreCnt;
+	}
+
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public int getTotalScore() {
+		return totalScore;
+	}
+
+	public void setTotalScore(int totalScore) {
+		this.totalScore = totalScore;
+	}
+
+	public String getDetailURL() {
+		return detailURL;
+	}
+
+	public void setDetailURL(String detailURL) {
+		this.detailURL = detailURL;
+	}
 
 	public MemberVO(){
 		super();		
@@ -331,6 +368,21 @@ public class MemberVO {
 		this.uname = uname;
 	}
 	
+	public String getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public int getRunningTime() {
+		return runningTime;
+	}
+
+	public void setRunningTime(int runningTime) {
+		this.runningTime = runningTime;
+	}
 	
 	public int getRating() {
 		return rating;
@@ -412,25 +464,159 @@ public class MemberVO {
 		this.score = score;
 		this.imgURL = imgURL;
 	}
-	public MemberVO(int movID, String title,String genre,String subTitle, int score, String imgURL, String presum){
+	public MemberVO(String title, int movID, String genre, String subTitle, int score, String imgURL, String presum){
 		super();
 		this.movID = movID;
 		this.title = title;
+		this.genre = genre;
 		this.subTitle = subTitle;
 		this.score = score;
 		this.imgURL = imgURL;
 		this.presum = presum;
+	}
+	public MemberVO(int movID, String title, String subTitle, String summary, int score, String genre, String imgURL, String releaseDate, int runningTime){
+		super();
+		this.movID = movID;
+		this.title = title;
+		this.subTitle = subTitle;
+		this.summary=summary;
+		this.score = score;
 		this.genre = genre;
+		this.imgURL = imgURL;
+		this.releaseDate = releaseDate;
+		this.runningTime = runningTime;
+	}
+	public MemberVO(int movID, String title, String subTitle, String summary, int score, String imgURL, String genre, String releaseDate, int runningTime, int scoreCnt, int viewCount, int totalScore, String detailURL){
+		super();
+		this.movID = movID;
+		this.title = title;
+		this.subTitle = subTitle;
+		this.summary=summary;
+		this.score = score;
+		this.imgURL = imgURL;
+		this.genre = genre;
+		this.releaseDate = releaseDate;
+		this.runningTime = runningTime;
+		this.scoreCnt = scoreCnt;
+		this.viewCount = viewCount;
+		this.totalScore = totalScore;
+		this.detailURL = detailURL;
 	}
 	
+	private int dID;
+	private int aID;
+	private int nID;
+	private String dKname;
+	private String dEname;
+	private String aKname;
+	private String aEname;
+	private String nName;
+	private String aBirth;
+	
+	public int getaID() {
+		return aID;
+	}
+
+	public void setaID(int aID) {
+		this.aID = aID;
+	}
+
+	public int getnID() {
+		return nID;
+	}
+
+	public void setnID(int nID) {
+		this.nID = nID;
+	}	
+	public String getnName() {
+		return nName;
+	}
+
+	public String getdKname() {
+		return dKname;
+	}
+
+	public void setdKname(String dKname) {
+		this.dKname = dKname;
+	}
+
+	public String getdEname() {
+		return dEname;
+	}
+
+	public void setdEname(String dEname) {
+		this.dEname = dEname;
+	}
+
+	public String getaKname() {
+		return aKname;
+	}
+
+	public void setaKname(String aKname) {
+		this.aKname = aKname;
+	}
+
+	public String getaEname() {
+		return aEname;
+	}
+
+	public void setaEname(String aEname) {
+		this.aEname = aEname;
+	}
+
+	public void setnName(String nName) {
+		this.nName = nName;
+	}
+	
+	public int getdID() {
+		return dID;
+	}
+
+	public void setdID(int dID) {
+		this.dID = dID;
+	}
+	
+	public String getaBirth() {
+		return aBirth;
+	}
+
+	public void setaBirth(String aBirth) {
+		this.aBirth = aBirth;
+	}
+	
+	public MemberVO(int nID, String nName){
+		super();
+		this.nID = nID;
+		this.nName = nName;
+	}
+	
+	public MemberVO(int dID, String dKname, String dEname){
+		super();
+		this.dID = dID;
+		this.dKname = dKname;
+		this.dEname = dEname;
+	}
+	
+	public MemberVO(String aKname, String aEname, int aID){
+		super();
+		this.aID = aID;
+		this.aKname = aKname;
+		this.aEname = aEname;
+	}
 
 	@Override
 	public String toString() {
 		return "MemberVO [mb_no=" + mb_no + ", uname=" + uname + ", userid=" + userid + ", passwd=" + passwd + ", pqid="
-				+ pqid + ", passwdans=" + passwdans + ", prefergid1=" + prefergid1 + ", prefergid2=" + prefergid2
-				+ ", prefergid3=" + prefergid3 + ", mv_no=" + mv_no + ", title=" + title + ", genre=" + genre
-				+ ", director=" + director + ", actors=" + actors + ", movID=" + movID + ", subTitle=" + subTitle
-				+ ", summary=" + summary + ", score=" + score + ", imgURL=" + imgURL + ", presum=" + presum + ", image="
-				+ image + ", rating=" + rating + "]";
+				+ pqid + ", passwdans=" + passwdans + ", userID=" + userID + ", pqID=" + pqID + ", passwdAns="
+				+ passwdAns + ", preferGID1=" + preferGID1 + ", preferGID2=" + preferGID2 + ", preferGID3=" + preferGID3
+				+ ", prefergid1=" + prefergid1 + ", prefergid2=" + prefergid2 + ", prefergid3=" + prefergid3
+				+ ", mv_no=" + mv_no + ", title=" + title + ", genre=" + genre + ", director=" + director + ", actors="
+				+ actors + ", movID=" + movID + ", subTitle=" + subTitle + ", summary=" + summary + ", score=" + score
+				+ ", imgURL=" + imgURL + ", presum=" + presum + ", image=" + image + ", rating=" + rating
+				+ ", releaseDate=" + releaseDate + ", runningTime=" + runningTime + ", scoreCnt=" + scoreCnt
+				+ ", viewCount=" + viewCount + ", totalScore=" + totalScore + ", detailURL=" + detailURL + ", dID="
+				+ dID + ", aID=" + aID + ", nID=" + nID + ", dKname=" + dKname + ", dEname=" + dEname + ", aKname="
+				+ aKname + ", aEname=" + aEname + ", nName=" + nName + ", aBirth=" + aBirth + "]";
 	}
+
 }

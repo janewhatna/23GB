@@ -343,14 +343,30 @@ return "/WEB-INF/views/mem_search_result.jsp";
 
 ////////////////////////////////////DETAIL_VIEW/////////////////////////////////////////////////////////		
 @RequestMapping("/detail_view/{mv_no}")
-public String detail_view(@PathVariable int mv_no, Model model){	
+public String detail_view(@PathVariable int mv_no, Model model,HttpServletRequest request, HttpServletResponse response){	
+	System.out.println("0");
 	System.out.println(mv_no);
-	ArrayList<MemberVO> list;
-	list = dao.getInfo4(mv_no);
-    model.addAttribute("list",list);
+	
+	ArrayList<MemberVO> listM;
+	ArrayList<MemberVO> listD;
+	ArrayList<MemberVO> listA;
+	ArrayList<MemberVO> listN;	
+	
+	listM = dao.getInfoMv(mv_no); //movie(movid, title, subTitle, summary, score, genre, imgurl, releaseDate, runningTime)
+	listD = dao.getInfoDr(mv_no); //Director
+	listA = dao.getInfoAc(mv_no); //Actor
+	listN = dao.getInfoNt(mv_no); //Nation
+	System.out.println("1");
+	System.out.println(listM.get(0).getTitle());
+	System.out.println(listD.get(0).getdKname());
+	System.out.println(listA.get(0).getaKname());
+	
+    model.addAttribute("listM",listM);
+    model.addAttribute("listD",listD);
+    model.addAttribute("listA",listA);
+    model.addAttribute("listN",listN);
 	return"/WEB-INF/views/detail_view.jsp";
 }
-
 
 ////////////////////////movie_Register_view////////////////////////////////
 @RequestMapping( "/movie_register_view" )

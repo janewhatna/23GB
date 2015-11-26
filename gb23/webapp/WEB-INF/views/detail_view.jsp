@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.gb23.gb23.vo.MemberVO"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@page import ="java.util.*"%>  
  
@@ -38,13 +38,13 @@
 					if(index % 2 == 1)
 					{	
 						 $(this).fadeOut(150,function(){
-							$(this).fadeIn(800).attr("src", "img/heart_r_blur.png");
+							$(this).fadeIn(800).attr("src", "img/heart_r.png");
 				         });
 					}
 					else
 					{	
 						 $(this).fadeOut(150,function(){
-							 $(this).fadeIn(800).attr("src", "img/heart_l_blur.png");
+							 $(this).fadeIn(800).attr("src", "img/heart_l.png");
 				         });
 					}
 				}
@@ -80,6 +80,9 @@
 			return ;
 		}
 	}
+	
+
+
 </script>
 </head>
 <body>
@@ -89,22 +92,37 @@
         <h4 class="modal-title" id="myModalLabel">상세 페이지</h4>
     </div>
 <!-----------------------모달 내용----------------------->
+<%-- 
+<%
+	ArrayList<MemberVO> vo=(ArrayList<MemberVO>)session.getAttribute("loginInfo");
+ %> --%>
     <div class="modal-body">
-    	<!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  -->
-		<c:forEach items="${list}" var="vo">
-			<div style="text-align: left;">
-				<h2>${vo.title}
-					<!-- view단에 뜨는 제목 -->
-					<!--  //////////////////////   버튼 	 //////////////////////	 -->
-					<input type="button" id="Title" value="ost" name="${vo.title}" onclick="ost();">
-					<input type="button" id="Title" value="original" name="${vo.title}" onclick="original();">
-				</h2>
-				<input type="image" src=${vo.image } width="100" height="100"> <!-- view단에 뜨는 이미지  -->
-				장르: ${vo.genre}<br /> <!-- view단에 뜨는 장르 -->
-				감독: ${vo.director}<br /> <!-- view단에 뜨는 감독 -->
-				배우: ${vo.actors}<br /> <!-- view단에 뜨는 배우 -->	
+  
+	<!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  -->
+		<c:forEach items="${requestScope.listM}" var="listM">
+				<div style="text-align: left;">
+					<h2>${listM.title}
+						<!-- view단에 뜨는 제목 -->
+						<!--  //////////////////////   버튼 	 //////////////////////	 -->
+						<input type="button" id="Title" value="ost" name="${listM.title}" onclick="ost();"> 
+						<input type="button" id="Title" value="original" name="${listM.title}" onclick="original();">
+					</h2>
+				<input type="image" src=${listM.imgURL} width="100" height="100"> <!-- view단에 뜨는 이미지  -->
+				</div>
+		</c:forEach>
+		장르: <c:forEach items="${requestScope.listM}" var="listM">${listM.genre}   </c:forEach> 
+		| 상영시간:  <c:forEach items="${requestScope.listM}" var="listM">${listM.runningTime}   </c:forEach>
+		| 국가: <c:forEach items="${requestScope.listN}" var="listN">${listN.nName}    </c:forEach><br/>
+		감독: <c:forEach items="${requestScope.listD}" var="listD">${listD.dKname}.   </c:forEach><br/> 
+		배우: <c:forEach items="${requestScope.listA}" var="listA">${listA.aKname}.   </c:forEach><br/> <!-- view단에 뜨는 배우 -->	
+		전체평점:  <c:forEach items="${requestScope.listM}" var="listM">${listM.score}</c:forEach><br/>
+		개봉일:  <c:forEach items="${requestScope.listM}" var="listM">${listM.releaseDate}</c:forEach> 
+		
+		<br/><br/>
+		줄거리: <c:forEach items="${requestScope.listM}" var="listM">${listM.summary}</c:forEach><br />
 	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->		
-				<div class="btn-group" data-no="${vo.mv_no}">
+		<c:forEach items="${requestScope.listM}" var="listM">
+				<div class="btn-group" data-no="${listM.movID}">
 					<input type="image" src="img/heart_l_blur.png" name="rating" value="1"> 
 					<input type="image" src="img/heart_r_blur.png" name="rating" value="2" style="margin-left: -6.3px;"> 
 					<input type="image" src="img/heart_l_blur.png" name="rating" value="3"> 
@@ -116,24 +134,24 @@
 					<input type="image" src="img/heart_l_blur.png" name="rating" value="9"> 
 					<input type="image" src="img/heart_r_blur.png" name="rating" value="10" style="margin-left: -6px;">
 				</div>
-			</div>
-		</c:forEach>
+		</c:forEach> 
+			 
 	</div>
 <!-----------------------모달 하단----------------------->
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
+    
+    
+	<!-- 모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	 -->
+ <form>
+ 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	    </div>
+	  </div>
+	</div>
+</form> 
+ 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
