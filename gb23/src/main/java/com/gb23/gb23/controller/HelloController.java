@@ -163,11 +163,10 @@ return "/WEB-INF/views/main.jsp";
 
 	@ResponseBody
 	@RequestMapping("/pwdFind")
-	public Object PwdFind(MemberVO vo, @RequestParam("uname") String uname, @RequestParam("userid") String userid, Model model) {
-		System.out.println(vo);
-
-		MemberVO mvo = new MemberVO(uname, userid);
-		mvo = dao.Pwdfind(vo);
+	public Object PwdFind( @RequestParam("uname") String uname, 
+			@RequestParam("userid") String userid, Model model) {
+				
+		MemberVO mvo = dao.Pwdfind(uname,userid);
 		System.out.println(mvo);
 		System.out.println("id : " + mvo.getUserid());
 		Map<String, String> map = new HashMap<String, String>();
@@ -181,6 +180,7 @@ return "/WEB-INF/views/main.jsp";
 			return map;
 		}
 	}
+	
 	
 	
 	//////////////////////////LOG-OUT////////////////////////////////

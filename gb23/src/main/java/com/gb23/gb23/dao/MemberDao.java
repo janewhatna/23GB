@@ -187,22 +187,24 @@ public class MemberDao {
 	}
 
 	///////////////////// pwdFind//////////////////////////////////////////////
-	public MemberVO Pwdfind(MemberVO vo) {
+	public MemberVO Pwdfind(String uname, String userid) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		MemberVO vo = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
 			String sql = "select uname, userid , passwd from  movie_user where uname=? and userid=?";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, vo.getUname());
-			pstmt.setString(2, vo.getUserid());
-			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
+			System.out.println(uname + userid);
+			pstmt.setString(1, uname);
+			pstmt.setString(2, userid);
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 			System.out.println("1");
 			while (rs.next()) {
+				System.out.println("2");
 				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getString(3));
 			}
 		} catch (Exception e) {
@@ -220,7 +222,6 @@ public class MemberDao {
 		System.out.println("6");
 		return vo;
 	}
-
 	///////////////////// IdFind//////////////////////////////////////////////
 	public MemberVO Idfind(MemberVO vo) {
 		Connection con = null;
