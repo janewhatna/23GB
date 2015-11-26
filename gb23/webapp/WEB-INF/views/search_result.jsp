@@ -78,6 +78,14 @@ img#asd {
 			return result;
 		});
 	});
+	
+	///////////////////Modal 속성 지정///////////////////	
+	function setModal($input)
+	{
+		$('#myModal').find('.modal-content').html('');	//모달을 켰을 시 이전에 있던 모달 데이터 초기화
+		$input.attr("data-toggle", "modal");
+		$input.attr("data-target", "#myModal");
+	}
 </script>
 <title>23GB</title>
 
@@ -133,18 +141,10 @@ $(document).ready(function() {
 <body onload="GetTime()">
 
   <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-custom navbar-fixed-top is-fixed is-visible">
      <div class="container-fluid">
- <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/gb23/main">무례한 23GB</a>
-            </div>
+ 	<!-- Brand and toggle get grouped for better mobile display -->
+           <a href="/gb23/main">무례한 23GB</a>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -160,13 +160,9 @@ $(document).ready(function() {
                     <li>
                         <a href="#">MyPage</a>
                     </li>
-                    <li>
-                        <a href="/gb23/contact">아이디/비밀번호찾기</a>
-                    </li>
                       <li>
                         <a href="/gb23/movie_register_view">영화등록</a>
                     </li>
-                   
                 </ul>
             </div>
         </div>
@@ -188,6 +184,8 @@ $(document).ready(function() {
 	<!--     ///////////////////////////////////////////////////////////////////////      -->
 
 <!-- 검색창  -->
+<div style="position:absolute; left:50%;">
+<div style="position:absolute; left:-400px; width:800px;">	
  <form action="/gb23/search_result" method="post">
 	<select id="selector" name="selector" onChange="check()">
 		<option value="title">TITLE</option>
@@ -197,24 +195,31 @@ $(document).ready(function() {
 	<input type="text" name=content size="50">
 	<input type="submit" value="Go">
 </form>
+</div>
+</div>
 
 <!-- 검색결과출력 -->
 		
-<div style="margin:0 auto; width:1000px;">		
+<div style="margin-top:100px; position:absolute; left:50%;">
+<div style="position:absolute; left:-445px; width:800px" >	
  <ul class="pagination1">
 	<c:forEach items="${requestScope.list}" var="mvo">
-		<li>
-			<div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+		<div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top:10px; box-shadow:10px 10px 30px grey;border-radius: 15px; ">
+		<div style="margin-left:20px">
 				<h2>${mvo.title}
 					<!-- view단에 뜨는 제목 -->
 	<!--  //////////////////////   버튼 	 //////////////////////	 -->
 					<input type="button" id="Title" value="ost" name="${mvo.title}" onclick="ost();">
-					<input type="button" id="Title" value="original" name="${mvo.title}" onclick="original();">
+					<input type="button" id="Title" value="original" name="${mvo.title}" onclick="original();"><br />
+					
 				</h2>
-				<img src=${mvo.imgURL} width="100" height="100" data-toggle="modal" id="cuteBoy" href ="/gb23/detail_view/${mvo.movID}" data-target="#myModal"> <!-- view단에 뜨는 이미지  -->
-				장르: ${mvo.title}<br /> <!-- view단에 뜨는 장르 -->
-				감독: ${mvo.subTitle}<br /> <!-- view단에 뜨는 감독 -->
-				배우: ${mvo.presum}<br /> <!-- view단에 뜨는 배우 -->
+				부제목/제작년도: ${mvo.subTitle}<br /><br /> <!-- view단에 뜨는 감독 -->
+				<img src=${mvo.imgURL} width="120" height="120" data-toggle="modal" id="cuteBoy" href ="/gb23/detail_view/${mvo.movID}" data-target="#myModal"> <!-- view단에 뜨는 이미지  -->
+				<br /><br />
+							
+				장르 : ${mvo.genre}<br />
+				줄거리: ${mvo.presum}<br /> <!-- view단에 뜨는 배우 -->
+	
 	
 	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->		
 		
@@ -231,14 +236,14 @@ $(document).ready(function() {
 					<input type="image" src="img/heart_r_blur.png" name="rating" value="10" style="margin-left: -6px;">
 				</div>
 			</div>
-		</li>
+			</div>
 	</c:forEach>
 </ul>
 </div>
+</div>
 
-
-<!-- 모달  -->	<!-- 모달  -->	<!-- 모달  -->	<!-- 모달  -->	<!-- 모달  -->	<!-- 모달  -->	<!-- 모달  -->	<!-- 모달  -->	<!-- 모달  -->	
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<!-- 모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	 -->
+ 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	    </div>

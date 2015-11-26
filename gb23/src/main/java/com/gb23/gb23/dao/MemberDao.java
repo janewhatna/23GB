@@ -302,6 +302,7 @@ public class MemberDao {
 		}
 	}
 
+
 	public ArrayList<MemberVO> getInfo(String content) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		Connection con = null;
@@ -311,14 +312,13 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "select * from movie where title like '%" + content + "%'";
+			String sql = "select movID, title,genre, subTitle, score, imgURL, presum from movie where REPLACE(title, ' ', '') like REPLACE('%"+content+"%', ' ', '')";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			rs = pstmt.executeQuery(); // query�� ����
 
 			while (rs.next()) {
-				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-						rs.getString(6)));
+				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -341,15 +341,13 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "select * from movie where MOVID in (select  movid from genre where gid in (select gid from genre_info where gName like '%"
-					+ content + "%'))";
+			String sql = "select movID, title,genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from genre where gid in (select gid from genre_info where REPLACE(genre, ' ', '') like REPLACE('%"+content+"%', ' ', '')))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			rs = pstmt.executeQuery(); // query�� ����
 
 			while (rs.next()) {
-				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-						rs.getString(6)));
+				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -372,15 +370,14 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "select * from movie where MOVID in (select  movid from actor where aid in (select aid from actor_info where akname like '%"
-					+ content + "%'))";
+			String sql = "select movID, title,genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from actor where aid in (select aid from actor_info where REPLACE(akname, ' ', '') like REPLACE('%"+content+"%', ' ', '')))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			rs = pstmt.executeQuery(); // query�� ����
 
 			while (rs.next()) {
-				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-						rs.getString(6)));
+				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
+				;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

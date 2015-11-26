@@ -24,7 +24,7 @@ public class MemberVO {
 		this.passwdans = passwdans;
 	}
 
-	//////////�깉濡쒖슫 議곗씤///////////////
+	//////////새로운 조인///////////////
 	private String userID;
 
 	private int pqID;
@@ -35,10 +35,9 @@ public class MemberVO {
 	
 	
 	
-	public MemberVO(String uname, String userID, String passwd, int pqID, String passwdAns, String preferGID1, String preferGID2,
+	public MemberVO(String userID, String passwd, int pqID, String passwdAns, String preferGID1, String preferGID2,
 			String preferGID3) {
 		super();
-		this.uname = uname;
 		this.userID = userID;
 		this.passwd = passwd;
 		this.pqID = pqID;
@@ -413,7 +412,7 @@ public class MemberVO {
 		this.score = score;
 		this.imgURL = imgURL;
 	}
-	public MemberVO(int movID, String title, String subTitle, int score, String imgURL, String presum){
+	public MemberVO(int movID, String title,String genre,String subTitle, int score, String imgURL, String presum){
 		super();
 		this.movID = movID;
 		this.title = title;
@@ -421,7 +420,9 @@ public class MemberVO {
 		this.score = score;
 		this.imgURL = imgURL;
 		this.presum = presum;
+		this.genre = genre;
 	}
+	
 
 	@Override
 	public String toString() {

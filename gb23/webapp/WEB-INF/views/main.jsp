@@ -126,10 +126,6 @@ tbody {
 
 <title>23GB</title>
 
-
-
- 
-    
  <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -144,18 +140,10 @@ tbody {
 <body onload="GetTime()">
 
   <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top is-fixed is-visible">
      <div class="container-fluid">
- <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/gb23/main">무례한 23GB</a>
-            </div>
+ 	<!-- Brand and toggle get grouped for better mobile display -->
+           <a href="/gb23/main">무례한 23GB</a>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -195,6 +183,8 @@ tbody {
     </header>
 
 <!-- 검색창  -->
+<div style="position:absolute; left:50%;">
+<div style="position:absolute; left:-400px; width:800px;">	
  <form action="/gb23/search_result" method="post">
 	<select id="selector" name="selector" onChange="check()">
 		<option value="title">TITLE</option>
@@ -204,6 +194,8 @@ tbody {
 	<input type="text" name=content size="50">
 	<input type="submit" value="Go">
 </form>
+</div>
+</div>
 	
 <!-- 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼  -->
 <table id = "boxoffice">	
@@ -236,42 +228,7 @@ tbody {
 	    </div>
 	  </div>
 	</div>
-	
-	<div id = "moveOFcuteboy" positon ="relative" style="margin-left: 200px;  background-color:#FFDDCD; width : 1500px; height :500px" >
-	 <header>
-		<h1>주간순위</h1>
-		
-		<div id="fps">Framerate: 0/60 FPS</div>
-	</header>
-	
 
-        <link rel="stylesheet" href="css/style.css">
-	<div id="contentContainer" class="trans3d"> 
-	<section id="carouselContainer" class="trans3d">
-		<figure id="item1" class="carouselItem trans3d" ><div class="carouselItemInner trans3d"><img src="img/laboum.jpg"></div></figure>
-		<figure id="item2" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="img/마션.jpg"></div></figure>
-		<figure id="item3" class="carouselItem trans3d"><div class="carouselItemInner trans3d">3</div></figure>
-		<figure id="item4" class="carouselItem trans3d"><div class="carouselItemInner trans3d">4</div></figure>
-		<figure id="item5" class="carouselItem trans3d"><div class="carouselItemInner trans3d">5</div></figure>
-		<figure id="item6" class="carouselItem trans3d"><div class="carouselItemInner trans3d">6</div></figure>
-		<figure id="item7" class="carouselItem trans3d"><div class="carouselItemInner trans3d">7</div></figure>
-		<figure id="item8" class="carouselItem trans3d"><div class="carouselItemInner trans3d">8</div></figure>
-		<figure id="item9" class="carouselItem trans3d"><div class="carouselItemInner trans3d">9</div></figure>
-		<figure id="item10" class="carouselItem trans3d"><div class="carouselItemInner trans3d">10</div></figure>
-		<figure id="item11" class="carouselItem trans3d"><div class="carouselItemInner trans3d">11</div></figure>
-		<figure id="item12" class="carouselItem trans3d"><div class="carouselItemInner trans3d">12</div></figure>	
-	</section>
-	</div>
-	
-    <script src='http://www.johnblazek.net/codepen-resources/3d-carousel/js/libs.min.js'></script>
-
-        <script src="js/index.js"></script>
-	
-	</div>
-	
-    
-    
-    
      <!-- Footer -->
     <footer>
         <div class="container" style=" margin-top: 1000px;">
@@ -308,80 +265,5 @@ tbody {
             </div>
         </div>
     </footer>
-    
 </body>
 </html>
-
-<!-- 페이징 -->
-
-<html>
-<head>
-	<meta name="description" content="jQuery HTML Canvas Animation Demo developed using jQuery and JavaScript coding. Displays live animation using latest HTML5 technology with the google logo." />
-	<meta name="keywords" content="jQuery html5 demo,jquery html5 canvas demo,html5 canvas demo,google html5 demo" />
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../script.js"></script>
-	
-<script type="text/javascript" src="http://www.jquery4u.com/demos/jquery-quick-pagination/js/jquery.quick.pagination.min.js"></script>
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-	$("ul.pagination1").quickPagination();
-	$("ul.pagination2").quickPagination({pagerLocation:"both"});
-	$("ul.pagination3").quickPagination({pagerLocation:"both",pageSize:"3"});
-});
-</script>
-
-<style type="text/css">
-#content { background-color:white; }
-</style>
-
-
-<title>jQuery4u demo - html5 canvas animation</title>
-</head>
-<body onload="init()"  >
-
-
-
-		
- <ul class="pagination3">
-	<li>1 - Item 1 of 25</li>
-    <li>2 - Item 2 of 25</li>
-    <li>3 - Item 3 of 25</li>
-    <li>4 - Item 4 of 25</li>
-    <li>5 - Item 5 of 25</li>
-    <li>6 - Item 6 of 25</li>
-
-    <li>7 - Item 7 of 25</li>
-    <li>8 - Item 8 of 25</li>
-    <li>9 - Item 9 of 25</li>
-	<li>10 - Item 10 of 25</li>
-    <li>11 - Item 11 of 25</li>
-    <li>12 - Item 12 of 25</li>
-
-    <li>13 - Item 13 of 25</li>
-    <li>14 - Item 14 of 25</li>
-    <li>15 - Item 15 of 25</li>
-    <li>16 - Item 16 of 25</li>
-    <li>17 - Item 17 of 25</li>
-    <li>18 - Item 18 of 25</li>
-
-    <li>19 - Item 19 of 25</li>
-    <li>20 - Item 20 of 25</li>
-    <li>21 - Item 21 of 25</li>
-    <li>22 - Item 22 of 25</li>
-    <li>23 - Item 23 of 25</li>
-    <li>24 - Item 24 of 25</li>
-	<li>25 - Item 25 of 25</li>
-</ul>
-
-</body>
-</html>
-
-
-   
-    
-    
-
-
