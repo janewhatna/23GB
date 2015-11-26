@@ -200,7 +200,7 @@ public class MemberDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getUname());
 			pstmt.setString(2, vo.getUserid());
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
 			System.out.println("1");
 			while (rs.next()) {
 				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getString(3));
@@ -260,27 +260,6 @@ public class MemberDao {
 		return vo;
 	}
 
-	public String delete(MemberVO vo) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		// ResultSet rs = null;
-		String id = null;
-
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "delete from member where id=?";
-			System.out.println(sql);
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, vo.getUserid());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return id;
-
-	}
-
 	public void closeAll(PreparedStatement pstmt, Connection con) {
 		try {
 			if (pstmt != null)
@@ -315,7 +294,7 @@ public class MemberDao {
 			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where REPLACE(title, ' ', '') like REPLACE('%"+content+"%', ' ', '')";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
@@ -344,7 +323,7 @@ public class MemberDao {
 			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from genre where gid in (select gid from genre_info where REPLACE(genre, ' ', '') like REPLACE('%"+content+"%', ' ', '')))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getString(1), rs.getInt(2),rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
@@ -373,7 +352,7 @@ public class MemberDao {
 			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from actor where aid in (select aid from actor_info where REPLACE(akname, ' ', '') like REPLACE('%"+content+"%', ' ', '')))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query�� ����
+			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getString(1),rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
@@ -405,7 +384,7 @@ public class MemberDao {
 					+ "%' and actors like '%" + actors + "%'";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
@@ -439,7 +418,7 @@ public class MemberDao {
 					+ content + "%', ' ', '')";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
@@ -470,7 +449,7 @@ public class MemberDao {
 			String sql = "select * from movie where title like '%" + content + "%'";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
 
 			while (rs.next()) {
 				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
@@ -614,7 +593,7 @@ public class MemberDao {
 	}
 
 
-	///////////////////// �쁺�솕�벑濡�///////////////////////////
+	///////////////////// 占쎌겫占쎌넅占쎈쾻嚥∽옙///////////////////////////
 	public void movie_register(int movID, String title, String subTitle, String summary, int score, String imgURL) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -885,4 +864,57 @@ public class MemberDao {
 				closeAll(rs, pstmt, con);
 			}
 }
+	public String delete(MemberVO vo){
+		   Connection con = null;
+		   PreparedStatement pstmt = null;
+		   String id = null;
+		   
+		   try {
+			   Class.forName("oracle.jdbc.driver.OracleDriver");
+		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+		         String sql = "delete from movie_user where userid=?";
+		         System.out.println(sql);
+		         pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, vo.getUserid());
+					pstmt.executeUpdate();
+		   } catch (Exception e) {
+				System.out.println(e);
+			}
+		return id;
+	
+	   }
+	public String passhint(MemberVO vo)  {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String pwd = null;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+	        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select passwd from member where userid=? and passwdans=? and uname=? and pqid=?";
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, vo.getUserid());
+			pstmt.setString(2, vo.getPasswdans());
+			pstmt.setString(3, vo.getUname());
+			pstmt.setInt(4, vo.getPqid());
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				pwd = rs.getString("passwd");
+				
+			}
+			
+			} catch (Exception e) {
+			System.out.println("not working");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return pwd;
+	}
 }

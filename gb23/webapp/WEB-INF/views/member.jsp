@@ -215,6 +215,10 @@ tbody {
 	<input type="text" name=content size="50">
 	<input type="submit" value="Go">
 </form>
+
+	<form action="/gb23/delete" method="post">
+   	 <input	type="submit" value="delete">
+	</form>
 </div>
 </div>	
 

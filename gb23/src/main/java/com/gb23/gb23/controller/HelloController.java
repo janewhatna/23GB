@@ -450,4 +450,23 @@ out.print("true");
 out.close();
 }
 
+////////////////////////////////////delete/////////////////////////////////////////////////////////	
+@RequestMapping("/delete")
+public String delete(@ModelAttribute MemberVO vo, HttpServletRequest request, Model model){
+//int num = dao.MemberNum();
+HttpSession session = request.getSession();
+vo = (MemberVO)session.getAttribute("loginInfo");
+
+dao.delete(vo);
+//model.addAttribute("vo", vo);
+//System.out.println( vo );
+return "/WEB-INF/views/main.jsp";
+}
+////////////////////////////////////PWDHINT /////////////////////////////////////////////////////////
+@RequestMapping("/pwdhint")
+public String pwdhint(HttpServletRequest request, MemberVO vo, Model model){
+String pwd = dao.passhint(vo);
+model.addAttribute("pwd", pwd);
+return "/WEB-INF/views/pwdfind_result.jsp";
+}
 }

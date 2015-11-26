@@ -25,7 +25,7 @@
 						<input type="submit" value="찾기" />
 					</div></li>
 			</ul>
-			<p>* 회원가입시 작성하였던 이름과 이메일을 입력하여 주세요.</p>
+			<p>* 회원가입시 작성하였던 정보를 입력하여 주세요.</p>
 		</div>
 	</form>
 
@@ -33,7 +33,7 @@
 
 	<!-- <h4 class="content_title">아이디/비밀번호 찾기</h4> -->
 
-	<form method="POST" action="/gb23/contact?type=pwdFind">
+	<form method="POST" action="/gb23/pwdhint">
 		<h5>비밀번호 찾기</h5>
 		<div>
 			<ul>
@@ -44,10 +44,27 @@
 				<li><strong>아이디</strong>
 					<div>
 						<input type="text" name="id" /> 
+					</div></li>
+					<li><strong>비밀번호질문</strong>
+					<div>
+			<select id="selectBox" name="pqid">
+			<option selected>비밀번호 힌트</option>
+			<option value="1">2015년 애인의 유무?</option>
+			<option value="2">가장 기억에 남는 별명?</option>
+			<option value="3">가장 친한 친구의 이름?</option>
+			<option value="4">엄마가 자주 하지만 그만했으면 하는 음식?</option>
+			<option value="5">엄마의 잔소리 베스트 1위?</option>
+			<option value="6">좋아하는 영화 제목 또는 감독?</option>
+			<option value="7">싫어하는 영화 제목 또는 감독</option>
+			</select>
+					</div></li>
+					<li><strong>비밀번호답변</strong>
+					<div>
+						<input type="text" name="pwdans" /> 
 						<input type="submit" value="찾기" />
 					</div></li>
 			</ul>
-			<p>* 회원가입시 작성하였던 이름과 이메일을 입력하여 주세요.</p>
+			<p>* 회원가입시 작성하였던 정보를 입력하여 주세요.</p>
 		</div>
 	</form>
 
