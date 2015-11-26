@@ -172,12 +172,13 @@ function original(){
 <!-- 검색창  -->
 <div style="position:absolute; left:50%;">
 <div style="position:absolute; left:-400px; width:800px;">	
- <form action="/gb23/search_result" method="post">
+ <form action="/gb23/mem_search_result" method="post">
 	<select id="selector" name="selector" onChange="check()">
 		<option value="title">TITLE</option>
 		<option value="genre">GENRE</option>
 		<option value="actors">ACTORS</option>
 	</select>
+	<input type="hidden" name=userid value = "<%=vo.getUserid()%>"	> 
 	<input type="text" name=content size="50">
 	<input type="submit" value="Go">
 </form>
