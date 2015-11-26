@@ -49,6 +49,16 @@ public class HelloController extends HttpServlet {
 	}
 	
 	
+	
+	
+	@RequestMapping( "/aaa" )
+	public String aaa(Model model) {
+
+		
+		return "/WEB-INF/views/mypage.jsp";  //forwarding
+	}
+	
+	
 	/////////////////////member-main///////////////////////
 	
 	@RequestMapping( "/member" )
