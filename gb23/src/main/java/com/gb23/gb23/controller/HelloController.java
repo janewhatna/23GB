@@ -205,8 +205,9 @@ return "/WEB-INF/views/main.jsp";
 		model.addAttribute("mv2", mv2);
 		model.addAttribute("mv3", mv3);
 
-		//ArrayList<MemberVO> UsMvHis = dao.UserMovHistory(userid);
-
+		ArrayList<MemberVO> UsMvHis = dao.UserMovHistory(userid);
+		model.addAttribute("UsMvHis", UsMvHis);
+		
 		return "/WEB-INF/views/mypage.jsp"; // forwarding
 	}
 

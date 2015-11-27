@@ -166,6 +166,11 @@ tbody {
            <a href="/gb23/main">무례한 23GB</a>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left" > 
+            	<li>
+                    <a href=#><%=vo.getUserid() %>님. 환영합니다.</a>
+                </li>
+            </ul>
                 <ul class="nav navbar-nav navbar-right">   
                     <li>
                         <a href="/gb23/member">Main</a>
@@ -181,6 +186,8 @@ tbody {
                     <li>
                     	<a href="/gb23/logout">로그아웃</a>
                     </li>
+                    <li>
+                   
                 </ul>
             </div>
         </div>
@@ -191,7 +198,7 @@ tbody {
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>ㅇㅇㅇ</h1>
+                        <h1>LA BOUM</h1>
                         <hr class="small">
                         <span class="subheading">23GB가 추천하는 영화</span>
                     </div>
@@ -221,7 +228,7 @@ tbody {
 </div>	
 
 	
-<%
+<%-- <%
  		if(vo==null){
  %>
 
@@ -230,7 +237,7 @@ tbody {
   			우선순위 1=<%=vo.getPrefergid1() %><br>
 			우선순위 2=<%=vo.getPrefergid2() %><br>
 			우선순위 3=<%=vo.getPrefergid3() %><br>
-<%	  } %>
+<%	  } %> --%>
 
 <!-- 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼  -->
 <table id = "boxoffice">	

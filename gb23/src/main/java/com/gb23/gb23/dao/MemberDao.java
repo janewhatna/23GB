@@ -1181,4 +1181,42 @@ public class MemberDao {
 		}
 		return pwd;
 	}
+	
+////////////////////////////UserMovHistory///////////////////////////////////	
+	public ArrayList<MemberVO> UserMovHistory(String userid) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select movie.title from movie where movid in (select movid from eval_movie where userid = ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			System.out.println(sql);
+
+			while (rs.next()) {
+				System.out.println("11" + rs.getString(1));
+				list.add(new MemberVO(rs.getString(1)));
+			}
+		} catch (Exception e) {
+			System.out.println("2");
+			e.printStackTrace();
+		} finally {
+			try {
+				System.out.println("3");
+				closeAll(rs, pstmt, con);
+			} catch (Exception e) {
+				System.out.println("4");
+				e.printStackTrace();
+			}
+		}
+		System.out.println("5");
+		return list;
+	}
+
+
 }

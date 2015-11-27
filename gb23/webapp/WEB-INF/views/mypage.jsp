@@ -63,66 +63,57 @@ tbody {
 	src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 	
-	///////////////////박스오피스 시간 마다 나라 바뀌게 해줌///////////////////
-	var nowTime = 0;
-	var check = true;
-	var jfunctionKOR = null;
-	var jfunctionUSA = null;
+///////////////////박스오피스 시간 마다 나라 바뀌게 해줌///////////////////
+var nowTime = 0;
+var jfunctionKOR = null;
+var jfunctionUSA = null;
 
-	function GetTime() {
-		if (check) {
-			document.getElementById("boxoffice_kor").style.display = "";
-			document.getElementById("boxoffice_usa").style.display = "none";
-			document.getElementById("nation").innerHTML = "한국 순위";
-			check = false;
-		}
-
-		if (nowTime >= 3) {
-			nowTime = 0;
-			switchNation();
-		} else {
-			nowTime += 1;
-		}
-		//document.getElementById("nowTime").value = nowTime + "초 ";
-		setTimeout("GetTime()", 1000);
+function GetTime() {
+	if (nowTime >= 3) {
+		nowTime = 0;
+		switchNation();
+	} else {
+		nowTime += 1;
 	}
-	function switchNation() {
-		if (document.getElementById("boxoffice_kor").style.display == "none") {
-			jfunctionKOR();
-		} else {
-			jfunctionUSA();
-		}
+	setTimeout("GetTime()", 1000);
+}
+function switchNation() {
+	if (document.getElementById("boxoffice_kor").style.display == "none") {
+		jfunctionKOR();
+	} else {
+		jfunctionUSA();
 	}
-	///////////////////박스오피스 애니메이션///////////////////
-	$(function() {
-		function showKOR() {
-			$("#boxoffice_usa").fadeOut(300, function() {
-				$("#boxoffice_kor").fadeIn(300);
-			});
-			document.getElementById("nation").innerHTML = "한국 순위";
-		}
-		jfunctionKOR = showKOR;
-	});
-
-	$(function() {
-		function showUSA() {
-			$("#boxoffice_kor").fadeOut(300, function() {
-				$("#boxoffice_usa").fadeIn(300);
-			});
-			document.getElementById("nation").innerHTML = "미국 순위";
-		}
-		jfunctionUSA = showUSA;
-	});
-
-	///////////////////박스오피스 클릭 시 페이지 넘어감///////////////////	 
-		$(function() {
-			$("td#title").children("a").click(function() {
-				var data = $(this).text();
-				var url = "/gb23/boxoffice_click/" + data;	//주소와 넣을 데이터
-				setModal($(this));	//모달 속성 지정해주는 함수 
-				$(this).attr("href", url);
-			});
+}
+///////////////////박스오피스 애니메이션///////////////////
+$(function() {
+	function showKOR() {
+		$("#boxoffice_usa").fadeOut(300, function() {
+			$("#boxoffice_kor").fadeIn(300);
 		});
+		document.getElementById("nation").innerHTML = "한국 순위";
+	}
+	jfunctionKOR = showKOR;
+});
+
+$(function() {
+	function showUSA() {
+		$("#boxoffice_kor").fadeOut(300, function() {
+			$("#boxoffice_usa").fadeIn(300);
+		});
+		document.getElementById("nation").innerHTML = "미국 순위";
+	}
+	jfunctionUSA = showUSA;
+});
+
+///////////////////박스오피스 클릭 시 페이지 넘어감///////////////////	 
+	$(function() {
+		$("td#title").children("a").click(function() {
+			var data = $(this).text();
+			var url = "/gb23/boxoffice_click/" + data;	//주소와 넣을 데이터
+			setModal($(this));	//모달 속성 지정해주는 함수 
+			$(this).attr("href", url);
+		});
+	});
 	///////////////////Modal 속성 지정///////////////////	
 		function setModal($input)
 		{
@@ -213,66 +204,48 @@ tbody {
 </div>	
 
 <div style="position:absolute; left:90%; height:500%;">
-	<div style="position:absolute; top:100px; left:-1000px;">
+	<div style="position:absolute; top:100px; left:-900px;">
 			
 		<%
 	 		if(vo==null){
 		 %>
 
 		<%   }else{ %>
+		<h3>내 정보 </h3>
   			이름: <%=vo.getUname() %> <br/>
 			아이디: <%=vo.getUserid() %> <br/> <a href="/gb23/update_form" onclick="setModal($(this));">회원정보 수정</a>
+			<hr  background-color="black">
 			<h3>선호장르</h3>
 			1. <c:forEach items="${requestScope.mv1}" var="mv1">${mv1.title}</c:forEach> <br/>
 			2. <c:forEach items="${requestScope.mv2}" var="mv2">${mv2.title}</c:forEach><br/>
 			3. <c:forEach items="${requestScope.mv3}" var="mv3">${mv3.title}</c:forEach><br/>
+			
+			
+			<hr>
+			<h3>내가 평가한 영화 목록</h3>
+			<c:forEach items="${requestScope.UsMvHis}" var="UsMvHis">${UsMvHis.title}<br/></c:forEach><br/>
 		<%	  } %>
 		
 			
 	</div>
 </div>
 
-
+	
 <!-- 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼  -->
 <table id = "boxoffice">	
-	<tr>	<th width = "80" id = "nation"><h5>한국 순위</h5></th>	<br/><th  width = "100"><h5>영화명</h5></th>	</tr>
+	<tr>	<th width = "80" id = "nation">한국 순위</th>	<th  width = "100">영화명</th>	</tr>
 	<tbody id = "boxoffice_kor">
-
-	<%-- 	<tr><td id = "rank"><img src="img/1.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(0, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/2.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(1, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/3.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(2, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/4.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(3, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/5.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(4, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/6.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(5, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/7.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(6, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/8.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(7, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/9.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(8, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/10.png"></td> 	<td id = "title"><a href = ""><%=box.getTitle(9, "kor")%></a></td></tr> --%>
-
 		<c:forEach items="${requestScope.bKorea}" var="kor">
 			<tr><td id = "rank"><img src="img/${kor.rank}.png"></td>		<td id = "title"><a href = "">${kor.title}</a></td></tr>
 		</c:forEach>
 	</tbody>
-
-	<tbody id = "boxoffice_usa">
-	<%-- 	<tr><td id = "rank"><img src="img/1.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(0, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/2.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(1, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/3.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(2, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/4.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(3, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/5.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(4, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/6.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(5, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/7.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(6, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/8.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(7, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/9.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(8, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/10.png"></td> 	<td id = "title"><a href = ""><%=box.getTitle(9, "usa")%></a></td></tr> --%>
-
 	<tbody id = "boxoffice_usa"  style="display:none">
 		<c:forEach items="${requestScope.bUsa}" var="usa">
 			<tr><td id = "rank"><img src="img/${usa.rank}.png"></td>		<td id = "title"><a href = "">${usa.title}</a></td></tr>
 		</c:forEach>
-
 	</tbody>
 </table>
+	
 	
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
