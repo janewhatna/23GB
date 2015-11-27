@@ -51,13 +51,24 @@ public class HelloController extends HttpServlet {
 	/////////////////////member-main///////////////////////
 	
 	@RequestMapping( "/member" )
-	public String member(Model model) {
+	public String member(Model model, HttpServletRequest request) {
 		//Boxoffice Infomation
 		ArrayList<Boxoffice> bKorea, bUsa;
 		bKorea = dao.getBoxoffice("KOR");
 		bUsa = dao.getBoxoffice("USA");
 		model.addAttribute("bKorea", bKorea);
 		model.addAttribute("bUsa", bUsa);
+		
+		HttpSession session = request.getSession();
+		MemberVO vo = (MemberVO)session.getAttribute("loginInfo");
+		
+		//Actor, Director Infomation		
+		ArrayList<Boxoffice> Actor, Director;
+		Actor = dao.recommandActor(vo);
+		Director = dao.recommandDirector(vo);
+		model.addAttribute("Actor", Actor);
+		model.addAttribute("Director", Director);
+		
 		return "/WEB-INF/views/member.jsp";  //forwarding
 	}
 	

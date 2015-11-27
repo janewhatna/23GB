@@ -1279,6 +1279,71 @@ System.out.println(sql);
 		System.out.println("5");
 		return list;
 	}
+	public ArrayList<Boxoffice> recommandActor(MemberVO vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Boxoffice> box = new ArrayList<Boxoffice>();
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select movie.movID, movie.title,  movie.IMGURL, average from movie, actor ,(select ActorID, average "
+                    +" from (select AID as ActorID, TRUNC((Total/count), 2)as average from ACTOR_SCORE where userID = '"+vo.getUserid()+"' order by average desc) "
+                    + "where ActorID in (select AID from ACTOR_INFO) and rownum <= 10) where movie.movId = actor.movID and actor.aid = ActorID "
+                    + " group by movie.title, movie.movID, movie.IMGURL, average order by average desc";
+			System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
 
+				box.add(new Boxoffice(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4)));	
+			} 
+
+		} catch (Exception e) {
+			System.out.println("not working");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return box;
+	}
+	
+	public ArrayList<Boxoffice> recommandDirector(MemberVO vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Boxoffice> box = new ArrayList<Boxoffice>();
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select movie.movID, movie.title, movie.IMGURL, average from movie, DIRECTOR ,(select DirectorID, average"
+					+ " from (select dID as DirectorID, TRUNC((Total/count), 2)as average from DIRECTOR_SCORE where userID = '"+vo.getUserid()+"' order by average desc)"
+					+ " where DirectorID in (select dID from DIRECTOR_INFO) and rownum <= 10) "
+					+ " where movie.movId = DIRECTOR.movID and DIRECTOR.dID = DirectorID "
+					+ " group by movie.title, movie.movID, movie.IMGURL, average order by average desc";
+			System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				box.add(new Boxoffice(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4)));
+			}
+
+		} catch (Exception e) {
+			System.out.println("not working");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return box;
+	}
 
 }

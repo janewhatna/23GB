@@ -5,7 +5,17 @@ public class Boxoffice
 	private String img;
 	private String title;
 	private int rank;
+	private int movID;
+	
+	public int getMovID() {
+		return movID;
+	}
 
+	public void setMovID(int movID) {
+		this.movID = movID;
+	}
+
+	
 	public String getImg() {
 		return img;
 	}
@@ -36,9 +46,17 @@ public class Boxoffice
 		this.rank = rank;
 	}
 	
+	public Boxoffice(int movID, String title, String img, int rank) {
+		super();
+		this.title = title;
+		this.img = img;
+		this.movID = movID;
+		this.rank = rank;
+	}
+	
 	@Override
 	public String toString() {
-		return "Boxoffice [title=" + title + ", img=" + img + ", rank=" + rank + "]";
+		return "Boxoffice [title=" + title + ", img=" + img + ", rank=" + rank + "movID="+ movID +"]";
 	}
 	
 

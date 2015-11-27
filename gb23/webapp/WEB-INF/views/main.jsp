@@ -106,15 +106,15 @@ tbody {
 		jfunctionUSA = showUSA;
 	});
 
-	///////////////////박스오피스 클릭 시 페이지 넘어감///////////////////	 
-		$(function() {
-			$("td#title").children("a").click(function() {
-				var data = $(this).text();
-				var url = "/gb23/boxoffice_click/" + data;	//주소와 넣을 데이터
-				setModal($(this));	//모달 속성 지정해주는 함수 
-				$(this).attr("href", url);
-			});
-		});
+// 	///////////////////박스오피스 클릭 시 페이지 넘어감///////////////////	 
+// 		$(function() {
+// 			$("td#title").children("a").click(function() {
+// 				var data = $(this).text();
+// 				var url = "/gb23/boxoffice_click/" + data;	//주소와 넣을 데이터
+// 				setModal($(this));	//모달 속성 지정해주는 함수 
+// 				$(this).attr("href", url);
+// 			});
+// 		});
 	///////////////////Modal 속성 지정///////////////////	
 		function setModal($input)
 		{

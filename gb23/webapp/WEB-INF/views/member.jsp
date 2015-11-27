@@ -115,14 +115,14 @@ tbody {
 	});
 
 	///////////////////박스오피스 클릭 시 페이지 넘어감///////////////////	 
-		$(function() {
-			$("td#title").children("a").click(function() {
-				var data = $(this).text();
-				var url = "/gb23/boxoffice_click/" + data;	//주소와 넣을 데이터
-				setModal($(this));	//모달 속성 지정해주는 함수 
-				$(this).attr("href", url);
-			});
-		});
+// 		$(function() {
+// 			$("td#title").children("a").click(function() {
+// 				var data = $(this).text();
+// 				var url = "/gb23/boxoffice_click/" + data;	//주소와 넣을 데이터
+// 				setModal($(this));	//모달 속성 지정해주는 함수 
+// 				$(this).attr("href", url);
+// 			});
+// 		});
 	///////////////////Modal 속성 지정///////////////////	
 		function setModal($input)
 		{
@@ -253,6 +253,28 @@ tbody {
 		</c:forEach>
 	</tbody>
 </table>
+	<!-- 영화 추천 -->
+<div style="position:absolute; left:50%; margin-top : -150px;">
+	<div style="position:absolute; left:-400px; width:800px;">		
+		<div style="float: left; width: 350px;text-align:center;">
+			<table style="text-align:center; margin-left:30px">
+				<h3>배우 추천</h3>
+				<c:forEach items="${requestScope.Actor}" var="Actor" begin="1" end="5">
+					<tr><td style="box-shadow:10px 10px 30px grey;border-radius: 15px; width: 200px; height: 250px; margin-top :20px"><img src="${Actor.img}" style="width: auto; height:200px;"><br>${Actor.title}</td></tr> 
+				</c:forEach>
+			</table>
+		</div>
+		
+		<div style="float: left; width: 350px;text-align:center;" >
+			<table style="text-align:center; margin-left:30px">
+				<h3>감독 추천</h3>
+				<c:forEach items="${requestScope.Director}" var="Director" begin="1" end="5">
+					<tr><td style="box-shadow:10px 10px 30px grey;border-radius: 15px; width: 200px; height: 250px; margin-top :20px"><img src="${Director.img}" style="width: auto; height:200px;"><br>${Director.title}</td></tr>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
+</div>
 	
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -273,7 +295,7 @@ tbody {
 
      <!-- Footer -->
     <footer>
-        <div class="container" style=" margin-top: 1000px;">
+        <div class="container" style=" margin-top: 1200px;">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
