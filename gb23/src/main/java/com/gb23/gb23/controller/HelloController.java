@@ -181,6 +181,36 @@ return "/WEB-INF/views/main.jsp";
 		}
 	}
 	
+//////////////////////////MYPAGE/////////////////////////////////////
+
+	@RequestMapping("/mypage")
+	public String aaa(Model model, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("loginInfo");
+		/* <FINDING PREFFERED GENRE123> */ /* <FINDING PREFFERED GENRE123> */ /*
+																				 * <FINDING
+																				 * PREFFERED
+																				 * GENRE123>
+																				 */
+		String pg1 = mvo.getPrefergid1();
+		String pg2 = mvo.getPrefergid2();
+		String pg3 = mvo.getPrefergid3();
+		String userid = mvo.getUserid();
+		System.out.println(pg1);
+		ArrayList<MemberVO> mv1 = dao.findPrefGenre1(pg1);
+		ArrayList<MemberVO> mv2 = dao.findPrefGenre2(pg2);
+		ArrayList<MemberVO> mv3 = dao.findPrefGenre3(pg3);
+		model.addAttribute("mv1", mv1);
+		model.addAttribute("mv2", mv2);
+		model.addAttribute("mv3", mv3);
+
+		//ArrayList<MemberVO> UsMvHis = dao.UserMovHistory(userid);
+
+		return "/WEB-INF/views/mypage.jsp"; // forwarding
+	}
+
+	
 	
 	
 	//////////////////////////LOG-OUT////////////////////////////////

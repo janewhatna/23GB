@@ -108,12 +108,6 @@ $(document).ready(function() {
                     <li>
                         <a href="/gb23/joinForm" onclick="setModal($(this));">Join</a>
                     </li>
-                    <li>
-                        <a href="#">MyPage</a>
-                    </li>
-                      <li>
-                        <a href="/gb23/movie_register_view">영화등록</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -124,7 +118,7 @@ $(document).ready(function() {
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>ㅇㅇㅇ</h1>
+                        <h1>LA BOUM</h1>
                         <hr class="small">
                         <span class="subheading">23GB가 추천하는 영화</span>
                     </div>
@@ -161,7 +155,6 @@ $(document).ready(function() {
                <!-- view단에 뜨는 제목 -->
    <!--  //////////////////////   버튼     //////////////////////    -->
                <input type="button" id="Title" value="ost" name="${mvo.title}" onclick="ost();">
-               <input type="button" id="Title" value="original" name="${mvo.title}" onclick="original();"><br />
                
             </h2>
             부제목/제작년도: ${mvo.subTitle}<br /><br /> <!-- view단에 뜨는 감독 -->

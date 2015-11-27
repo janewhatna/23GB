@@ -26,6 +26,113 @@ public class MemberDao {
 		return instance;
 	}
 
+////////////////////////////GET_PREFERRED_GENRE1///////////////////////////////////	
+	public ArrayList<MemberVO> findPrefGenre1(String pg1) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select gname from genre_info gi, movie_user mu where mu.prefergid1 = gi.gid and mu.prefergid1=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pg1);
+			rs = pstmt.executeQuery();
+			System.out.println(sql);
+
+			while (rs.next()) {
+				System.out.println("11" + rs.getString(1));
+				list.add(new MemberVO(rs.getString(1)));
+			}
+		} catch (Exception e) {
+			System.out.println("2");
+			e.printStackTrace();
+		} finally {
+			try {
+				System.out.println("3");
+				closeAll(rs, pstmt, con);
+			} catch (Exception e) {
+				System.out.println("4");
+				e.printStackTrace();
+			}
+		}
+		System.out.println("5");
+		return list;
+	}
+
+	//////////////////////////// GET_PREFERRED_GENRE2///////////////////////////////////
+	public ArrayList<MemberVO> findPrefGenre2(String pg2) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select gname from genre_info gi, movie_user mu where mu.prefergid2 = gi.gid and mu.prefergid2=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pg2);
+			rs = pstmt.executeQuery();
+			System.out.println(sql);
+
+			while (rs.next()) {
+				System.out.println("11" + rs.getString(1));
+				list.add(new MemberVO(rs.getString(1)));
+			}
+		} catch (Exception e) {
+			System.out.println("2");
+			e.printStackTrace();
+		} finally {
+			try {
+				System.out.println("3");
+				closeAll(rs, pstmt, con);
+			} catch (Exception e) {
+				System.out.println("4");
+				e.printStackTrace();
+			}
+		}
+		System.out.println("5");
+		return list;
+	}
+
+////////////////////////////GET_PREFERRED_GENRE3///////////////////////////////////	
+	public ArrayList<MemberVO> findPrefGenre3(String pg3) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select gname from genre_info gi, movie_user mu where mu.prefergid3 = gi.gid and mu.prefergid3=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pg3);
+			rs = pstmt.executeQuery();
+			System.out.println(sql);
+
+			while (rs.next()) {
+				System.out.println("11" + rs.getString(1));
+				list.add(new MemberVO(rs.getString(1)));
+			}
+		} catch (Exception e) {
+			System.out.println("2");
+			e.printStackTrace();
+		} finally {
+			try {
+				System.out.println("3");
+				closeAll(rs, pstmt, con);
+			} catch (Exception e) {
+				System.out.println("4");
+				e.printStackTrace();
+			}
+		}
+		System.out.println("5");
+		return list;
+	}
+	
 	public int MemberNum() {
 		Connection con = null;
 		PreparedStatement pstmt = null;

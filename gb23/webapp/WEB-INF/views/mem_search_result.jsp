@@ -49,7 +49,7 @@ $(function() { // jQuery를 시작하는 데... main()
 				}
 		}
 
-	
+	});
 	$.ajax({
 		url : "/gb23/rating_result", //url
 		data : "n=" + no + "&r=" + value, //넘겨야 할 데이터  
@@ -205,7 +205,6 @@ function original(){
 					<!-- view단에 뜨는 제목 -->
 	<!--  //////////////////////   버튼 	 //////////////////////	 -->
 					<input type="button" id="Title" value="ost" name="${mvo.title}" onclick="ost();">
-					<input type="button" id="Title" value="original" name="${mvo.title}" onclick="original();"><br />
 					
 				</h2>
 				부제목/제작년도: ${mvo.subTitle}<br /><br /> <!-- view단에 뜨는 감독 -->

@@ -172,14 +172,11 @@ tbody {
                     </li>
                                       
                     <li>
-                        <a href="/gb23/aaa">MyPage</a>
+                        <a href="/gb23/mypage">MyPage</a>
                     </li>
                     
                       <li>
                         <a href="/gb23/movie_register_view">영화등록</a>
-                    </li>
-                    <li>
-                    	<a href="/gb23/update_form">회원정보 수정</a>
                     </li>
                     <li>
                     	<a href="/gb23/logout">로그아웃</a>
@@ -219,9 +216,7 @@ tbody {
 	<input type="submit" value="Go">
 </form>
 
-	<form action="/gb23/delete" method="post">
-   	 <input	type="submit" value="delete">
-	</form>
+	
 </div>
 </div>	
 

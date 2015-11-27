@@ -105,7 +105,6 @@
 						<!-- view단에 뜨는 제목 -->
 						<!--  //////////////////////   버튼 	 //////////////////////	 -->
 						<input type="button" id="Title" value="ost" name="${listM.title}" onclick="ost();"> 
-						<input type="button" id="Title" value="original" name="${listM.title}" onclick="original();">
 					</h2>
 				<input type="image" src=${listM.imgURL} width="100" height="100"> <!-- view단에 뜨는 이미지  -->
 				</div>
