@@ -12,6 +12,22 @@
 </head>
 <body>
 
+	<!-- -----------------------모달 타이틀---------------------- -->
+	<div class="modal-header">
+
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<div class="logIn">
+			<h4 class="modal-title" id="myModalLabel">로그인</h4>
+		</div>
+		<div class="find" style="display: none">
+			<h4 class="modal-title" id="myModalLabel">아이디/비번찾기</h4>
+		</div>
+	</div>
+	<!-- ---------------------모달내용--------------------- -->
+	<div class="modal-body">
 
 <form action="/gb23/movie_register" method="post">
 			영화ID<input type="text" name="movID"><br />
@@ -33,10 +49,20 @@
 			              
 			
 			
-			<input type="submit" value="등록">
-			<span id="cancel" style="cursor: pointer;">취소</span>
+			<input type="submit" value="등록"><br/>
 </form>		
+</div>
+<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
 
-
-</body>
-</html>
+	<!-- 모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	 -->
+	<form>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel" aria-hidden="true"
+			data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
+			<div class="modal-dialog">
+				<div class="modal-content"></div>
+			</div>
+		</div>
+	</form>

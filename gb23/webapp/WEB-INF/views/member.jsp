@@ -176,7 +176,7 @@ tbody {
                     </li>
                     
                       <li>
-                        <a href="/gb23/movie_register_view">영화등록</a>
+                        <a href="/gb23/movie_register_view"  onclick="setModal($(this));">영화등록</a>
                     </li>
                     <li>
                     	<a href="/gb23/logout">로그아웃</a>
