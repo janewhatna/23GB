@@ -215,7 +215,7 @@ tbody {
  <form action="/gb23/mem_search_result" method="post">
 	<select id="selector" name="selector" onChange="check()">
 		<option value="title">TITLE</option>
-		<option value="genre">GENRE</option>
+		<option value="director">DIRECTOR</option>
 		<option value="actors">ACTORS</option>
 	</select>
 	<input type="hidden" name=userid value = "<%=vo.getUserid()%>"	> 

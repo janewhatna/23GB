@@ -48,17 +48,6 @@ public class HelloController extends HttpServlet {
 		return "/WEB-INF/views/main.jsp";  //forwarding
 	}
 	
-	
-	
-	
-	@RequestMapping( "/aaa" )
-	public String aaa(Model model) {
-
-		
-		return "/WEB-INF/views/mypage.jsp";  //forwarding
-	}
-	
-	
 	/////////////////////member-main///////////////////////
 	
 	@RequestMapping( "/member" )
@@ -163,15 +152,15 @@ return "/WEB-INF/views/main.jsp";
 
 	@ResponseBody
 	@RequestMapping("/pwdFind")
-	public Object PwdFind( @RequestParam("uname") String uname, 
+	public Object PwdFind( MemberVO vo, @RequestParam("uname") String uname, 
 			@RequestParam("userid") String userid, Model model) {
 				
-		MemberVO mvo = dao.Pwdfind(uname,userid);
+		MemberVO mvo = dao.Pwdfind(vo);
 		System.out.println(mvo);
 		System.out.println("id : " + mvo.getUserid());
 		Map<String, String> map = new HashMap<String, String>();
 
-		if (mvo.getUserid() == null) { // id 없음.
+		if (mvo.getPasswd() == null) { // id 없음.
 			map.put("uname", "nothing");
 			return map;
 		} else { // id있음.
@@ -186,13 +175,16 @@ return "/WEB-INF/views/main.jsp";
 	@RequestMapping("/mypage")
 	public String aaa(Model model, HttpServletRequest request) {
 
+		ArrayList<Boxoffice> bKorea, bUsa;
+		bKorea = dao.getBoxoffice("KOR");
+		bUsa = dao.getBoxoffice("USA");
+		model.addAttribute("bKorea", bKorea);
+		model.addAttribute("bUsa", bUsa);
+		
 		HttpSession session = request.getSession();
 		MemberVO mvo = (MemberVO) session.getAttribute("loginInfo");
-		/* <FINDING PREFFERED GENRE123> */ /* <FINDING PREFFERED GENRE123> */ /*
-																				 * <FINDING
-																				 * PREFFERED
-																				 * GENRE123>
-																				 */
+		/* <FINDING PREFFERED GENRE123> */ /* <FINDING PREFFERED GENRE123> */
+		
 		String pg1 = mvo.getPrefergid1();
 		String pg2 = mvo.getPrefergid2();
 		String pg3 = mvo.getPrefergid3();
@@ -234,13 +226,24 @@ return "/WEB-INF/views/main.jsp";
 		return "/WEB-INF/views/update.jsp";
 	}
 ////////////////////////////////////update/////////////////////////////////////////////////////////	
+	@ResponseBody
 	@RequestMapping("/update")
-	public String updateInfo(HttpServletRequest request, MemberVO vo){
+	public Object updateInfo(HttpServletRequest request, MemberVO vo, Model model){
+	System.out.println("update controller");
+
+	ArrayList<Boxoffice> bKorea, bUsa;
+	bKorea = dao.getBoxoffice("KOR");
+	bUsa = dao.getBoxoffice("USA");
+	model.addAttribute("bKorea", bKorea);
+	model.addAttribute("bUsa", bUsa);
 	System.out.println("update controller");
 	dao.updateMypage(vo);
 	HttpSession session = request.getSession();
 	session.setAttribute("loginInfo", vo);
-	return "/WEB-INF/views/member.jsp";
+	
+	Map<String, String> map = new HashMap<String, String>();
+	map.put("ok", "ok");
+	return map;
 	}
 	
 
@@ -367,19 +370,30 @@ return "/WEB-INF/views/main.jsp";
 public String mem_search_result(@RequestParam("userid") String userid,
 						@RequestParam("selector") String selector, 
 							@RequestParam("content") String content, Model model){
-ArrayList<MemberVO> list;
-
-try{
-	list = dao.getInfo_mem_search_result(userid,content);
-	model.addAttribute("list",list);
-	System.out.println("here");
-	return"/WEB-INF/views/mem_search_result.jsp";
-
-}catch(Exception e){
-	System.out.println("null");
-	e.printStackTrace();
-}
-return "/WEB-INF/views/mem_search_result.jsp";
+	ArrayList<MemberVO> list;
+	
+	try{
+		if(selector.equals("director")){
+			list = dao.getInfo_mem_search_result1(userid,content);
+			model.addAttribute("list",list);
+			System.out.println("here");
+			return"/WEB-INF/views/mem_search_result.jsp";
+		}else if(selector.equals("actors")){
+			list = dao.getInfo_mem_search_result2(userid,content);
+			model.addAttribute("list",list);
+			System.out.println("here");
+			return"/WEB-INF/views/mem_search_result.jsp";
+		}else if(selector.equals("title")){
+			list = dao.getInfo_mem_search_result3(userid,content);
+			model.addAttribute("list",list);
+			System.out.println("here");
+			return"/WEB-INF/views/mem_search_result.jsp";
+		}
+	}catch(Exception e){
+		System.out.println("null");
+		e.printStackTrace();
+	}
+	return "/WEB-INF/views/mem_search_result.jsp";
 }	
 
 

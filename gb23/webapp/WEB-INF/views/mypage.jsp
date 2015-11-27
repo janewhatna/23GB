@@ -145,7 +145,6 @@ $(function() {
 
 <%
  		MemberVO vo=(MemberVO)session.getAttribute("loginInfo");
- 		MemberVO mvo=(MemberVO)session.getAttribute("mvo");
  %>
   <!-- Navigation -->
         <nav class="navbar navbar-default navbar-custom navbar-fixed-top is-fixed is-visible">
@@ -194,7 +193,7 @@ $(function() {
  <form action="/gb23/mem_search_result" method="post">
 	<select id="selector" name="selector" onChange="check()">
 		<option value="title">TITLE</option>
-		<option value="genre">GENRE</option>
+		<option value="director">DIRECTOR</option>
 		<option value="actors">ACTORS</option>
 	</select>
 	<input type="text" name=content size="50">
@@ -211,10 +210,10 @@ $(function() {
 		 %>
 
 		<%   }else{ %>
-		<h3>내 정보 </h3>
+		<h3>내 정보 </h3> <a href="/gb23/update_form" onclick="setModal($(this));"><h5>회원정보 수정</h5></a>
   			이름: <%=vo.getUname() %> <br/>
-			아이디: <%=vo.getUserid() %> <br/> <a href="/gb23/update_form" onclick="setModal($(this));">회원정보 수정</a>
-			<hr  background-color="black">
+			아이디: <%=vo.getUserid() %> <br/> 
+			
 			<h3>선호장르</h3>
 			1. <c:forEach items="${requestScope.mv1}" var="mv1">${mv1.title}</c:forEach> <br/>
 			2. <c:forEach items="${requestScope.mv2}" var="mv2">${mv2.title}</c:forEach><br/>
@@ -230,7 +229,6 @@ $(function() {
 	</div>
 </div>
 
-	
 <!-- 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼 박스오피스 폼  -->
 <table id = "boxoffice">	
 	<tr>	<th width = "80" id = "nation">한국 순위</th>	<th  width = "100">영화명</th>	</tr>
@@ -245,7 +243,6 @@ $(function() {
 		</c:forEach>
 	</tbody>
 </table>
-	
 	
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -264,8 +261,8 @@ $(function() {
 	  </div>
 	</div>
 
-     <!-- Footer -->
-    <footer>
+   <!-- Footer -->
+    <!-- <footer>
         <div class="container" style=" margin-top: 1000px;">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -299,8 +296,8 @@ $(function() {
                 </div>
             </div>
         </div>
-    </footer>
-    
+    </footer> -->
+     
 </body>
 </html>
 

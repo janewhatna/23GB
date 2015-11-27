@@ -6,73 +6,64 @@
 
 <!DOCTYPE html>
 <html>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <head>
-
-	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="js/jquery-1.11.3.js"></script>
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-$(function() { // jQuery를 시작하는 데... main()
 
-	$("input[name='rating']").click(function() {
-	var $input = $(this);
-	var value = $input.val(); //value
-	
-	var $parent = $input.parent( "div.btn-group" );
-	var no = $parent.attr( "data-no" ); //number of movies
-	
-	var result = "";
-	console.log("!!!!!!!!!!!! - " + value + ":" + no);
-	
-	$parent.children("input").each(function(index){
-		if(index >= value)
-		{	
-			if(index % 2 == 1)
-			{	$(this).attr("src", "img/heart_r_blur.png");	}
-			else
-			{	$(this).attr("src", "img/heart_l_blur.png");	}
-		}
-		else
-		{	
-			if(index % 2 == 1)
-			{	
-				 $(this).fadeOut(150,function(){
-					$(this).fadeIn(800).attr("src", "img/heart_r.png");
-		             });
-			}
-			else
-			{	
-				 $(this).fadeOut(150,function(){
-					 $(this).fadeIn(800).attr("src", "img/heart_l.png");
-		             });
+	$(function() { // jQuery를 시작하는 데... main()
+
+		$("input[name='rating']").click(function() {
+			var $input = $(this);
+			var value = $input.val(); //value
+
+			var $parent = $input.parent("div.btn-group");
+			var no = $parent.attr("data-no"); //number of movies
+
+			var result = "";
+			console.log("!!!!!!!!!!!! - " + value + ":" + no);
+
+			$parent.children("input").each(function(index) {
+				if (index >= value) {
+					if (index % 2 == 1) {
+						$(this).attr("src", "img/heart_r_blur.png");
+					} else {
+						$(this).attr("src", "img/heart_l_blur.png");
+					}
+				} else {
+					if (index % 2 == 1) {
+						$(this).fadeOut(150, function() {
+							$(this).fadeIn(800).attr("src", "img/heart_r.png");
+						});
+					} else {
+						$(this).fadeOut(150, function() {
+							$(this).fadeIn(800).attr("src", "img/heart_l.png");
+						});
+					}
 				}
-		}
 
+			});
+			$.ajax({
+				url : "/gb23/rating_result", //url
+				data : "n=" + no + "&r=" + value, //넘겨야 할 데이터  
+				type : "get",
+				dataType : "json",
+				success : function(response) { //성고했을 때!
+					if (response = 2) {
+						alert("이미 평가한 영화입니다.");
+					}
+				},
+				error : function(jqXHR, status, e) { //실패
+					console.error(status + " : " + e);
+				}
+			});
+			return result;
+		});
 	});
-	$.ajax({
-		url : "/gb23/rating_result", //url
-		data : "n=" + no + "&r=" + value, //넘겨야 할 데이터  
-		type : "get",
-		dataType : "json",
-		success : function(response) { //성고했을 때!
-				if(response = 2)
-				{	alert("이미 평가한 영화입니다.");	}
-		},
-		error : function(jqXHR, status, e) { //실패
-			console.error(status + " : " + e);
-		}
-	});
-	return result;
-});
-});
-	///////////////////Modal 속성 지정///////////////////	
-	function setModal($input)
-	{
-		$('#myModal').find('.modal-content').html('');	//모달을 켰을 시 이전에 있던 모달 데이터 초기화
-		$input.attr("data-toggle", "modal");
-		$input.attr("data-target", "#myModal");
-	}
 </script>
 <link rel="stylesheet" type="text/css" href="../style.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -97,6 +88,13 @@ function original(){
 		return ;
 	}
 }
+///////////////////Modal 속성 지정///////////////////	
+
+	function setModal($input) {
+		$('#myModal').find('.modal-content').html(''); //모달을 켰을 시 이전에 있던 모달 데이터 초기화
+		$input.attr("data-toggle", "modal");
+		$input.attr("data-target", "#myModal");
+	}
 </script>
 </head>
 <body>
@@ -132,11 +130,7 @@ function original(){
                     </li>
                                       
                     <li>
-                        <a href="/gb23/aaa">MyPage</a>
-                    </li>
-                    
-                      <li>
-                        <a href="/gb23/movie_register_view">영화등록</a>
+                        <a href="/gb23/mypage">MyPage</a>
                     </li>
                     <li>
                     	<a href="/gb23/update_form">회원정보 수정</a>
@@ -154,7 +148,7 @@ function original(){
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>ㅇㅇㅇ</h1>
+                        <h1>LA BOUM</h1>
                         <hr class="small">
                         <span class="subheading">23GB가 추천하는 영화</span>
                     </div>
@@ -169,7 +163,7 @@ function original(){
  <form action="/gb23/mem_search_result" method="post">
 	<select id="selector" name="selector" onChange="check()">
 		<option value="title">TITLE</option>
-		<option value="genre">GENRE</option>
+		<option value="director">DIRECTOR</option>
 		<option value="actors">ACTORS</option>
 	</select>
 	<input type="hidden" name=userid value = "<%=vo.getUserid()%>"	> 
@@ -180,7 +174,7 @@ function original(){
 </div>
 	
 	
-<%
+<%-- <%
  		if(vo==null){
  %>
 
@@ -190,7 +184,7 @@ function original(){
 			우선순위 2=<%=vo.getPrefergid2() %><br>
 			우선순위 3=<%=vo.getPrefergid3() %><br>
 <%	  } %>
-	
+	 --%>
 	
 <!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  --><!-- 검색 결과 출력  -->
 <!-- 검색결과출력 -->
@@ -209,7 +203,7 @@ function original(){
 				</h2>
 				부제목/제작년도: ${mvo.subTitle}<br /><br /> <!-- view단에 뜨는 감독 -->
 				<img src=${mvo.imgURL} width="120" height="120" data-toggle="modal" id="cuteBoy" href ="/gb23/detail_view/${mvo.movID}" data-target="#myModal"> <!-- view단에 뜨는 이미지  -->
-				<br /><br />
+          <br />
 							
 				장르 : ${mvo.genre}<br />
 				줄거리: ${mvo.presum}<br /> <!-- view단에 뜨는 배우 -->

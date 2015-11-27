@@ -83,7 +83,7 @@
 				success : function(response) { //성고했을 때!
 					console.log(response);
 					if(response.uname == name){	
-						alert("당신의 패스워드는 "+response.passwd+" 입니다.");
+						alert("당신의 패스워드는 "+response.passwd+" 입니다."); //
 					 }else {						 
 						alert("23GB에 등록되지 않은 아이디입니다.");
 					 }

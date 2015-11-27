@@ -6,8 +6,49 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
+ <script >
+	$(function() {
+		$("#good").click(function() {
+			var passwd = $("input[name='passwd']").val();
+			var pqid = $("input[name='pqid']").val();
+			var passwdans = $("input[name='passwdans']").val();
+			var preferGID1 = $("input[name='preferGID1']").val();
+			var preferGID2 = $("input[name='preferGID2']").val();
+			var preferGID3  = $("input[name='preferGID3 ']").val();
+			
+			$.ajax({
+				url : "/gb23/update", //url
+				data : "passwd=" + passwd + "&pqid =" +pqid +"&passwdans=" + passwdans + "&preferGID1 =" +preferGID1+"&preferGID2=" + preferGID2 + "&preferGID3 =" +preferGID3, //넘겨야 할 데이터  
+				type : "get",
+				dataType : "json",
+				success : function(response) { //성고했을 때!
+					alert("회원정보 수정 시, 다시 로그인 하셔야 합니다. ");
+				
+					window.location.href = "/gb23/main";
+				},
+				error : function(jqXHR, status, e) { //실패
+					console.error(status + " : " + e);
+				}
+			});
+		});
+	});
+
+</script>
 </head>
 <body>
+
+	<!-- -----------------------모달 타이틀---------------------- -->
+	<div class="modal-header">
+
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		
+	</div>
+	<!-- ---------------------모달내용--------------------- -->
+	<div class="modal-body">
+
 <%
 	MemberVO vo = (MemberVO)session.getAttribute("loginInfo"); 
 
@@ -19,8 +60,9 @@
 	}else{
 
 %>
-<form method="post" action="/gb23/update">
-<!-- <input type="hidden" name="command" value="update"> -->
+<form>
+<!-- <form method="post" action="/gb23/update"> -->
+<input type="hidden" name="command" value="update"> -->
 아이디 : <input type="text" name="userid" readonly="readonly" value="<%=vo.getUserid() %>"><br>
 <%-- 이름 : <input type="text" name="name" value="<%=vo.getUname() %>"><br> --%>
 비밀번호 : <input type="text" name="passwd" value="<%=vo.getPasswd() %>"><br>
@@ -137,10 +179,27 @@
 				<option value="28" <%if ("28".equals((vo.getPrefergid3()))){%>selected<%}%>>영화패러디포스터</option>
 				<option value="29" <%if ("29".equals((vo.getPrefergid3()))){%>selected<%}%>>맬로</option>
 			</select>
-<input type="submit" value="확인">
+			<br/>
+<input type="button" id="good" value="확인">
 </form>
 <%
 	}
 %>
+
+<!-- ---------------------모달 하단--------------------- -->
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+
+	<!-- 모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	모달 	 -->
+	<form>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel" aria-hidden="true"
+			data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
+			<div class="modal-dialog">
+				<div class="modal-content"></div>
+			</div>
+		</div>
+	</form>
 </body>
 </html>

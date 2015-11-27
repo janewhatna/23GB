@@ -438,22 +438,24 @@ public class MemberDao {
 	}
 
 	///////////////////// pwdFind//////////////////////////////////////////////
-	public MemberVO Pwdfind(String uname, String userid) {
+	public MemberVO Pwdfind(MemberVO vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		MemberVO vo = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
 			String sql = "select uname, userid , passwd from  movie_user where uname=? and userid=?";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			System.out.println(uname + userid);
-			pstmt.setString(1, uname);
+			pstmt.setString(1, vo.getUname());
+			pstmt.setString(2, vo.getUserid());
+			
+			/*pstmt.setString(1, uname);
 			pstmt.setString(2, userid);
-			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
+			*/rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 			System.out.println("1");
+			
 			while (rs.next()) {
 				System.out.println("2");
 				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getString(3));
@@ -661,7 +663,8 @@ public class MemberDao {
 	}
 	///////////////////////////////////// mem_search_result////////////////////////
 
-	public ArrayList<MemberVO> getInfo_mem_search_result(String userid, String content) {
+
+	public ArrayList<MemberVO> getInfo_mem_search_result1(String userid, String content) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -670,17 +673,75 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = " select movie.* from (select mid, gid, p1, p2, p3 from (select ROW_NUMBER() over (PARTITION BY genre.MOVID order by genre.MOVID) as Myrow, genre.MOVID as mid, genre.gid as gid, g.prefergid1 as p1, g.prefergid2 as p2, g.prefergid3 as p3 from  genre, (select * from movie_user where movie_user.userid='"
-					+ userid
-					+ "') g) where Myrow = 1 order by DECODE(gid, p1, 1, p2, 2, p3, 3)), movie where mid in movie.movid and  replace(title, ' ', '') like replace('%"
-					+ content + "%', ' ', '')";
+			String sql = " select title, movID, genre, subTitle, score, imgURL, presum from (select mid, gid, p1, p2, p3 from (select ROW_NUMBER() over (PARTITION BY genre.MOVID order by genre.MOVID) as Myrow, genre.MOVID as mid, genre.gid as gid, g.prefergid1 as p1, g.prefergid2 as p2, g.prefergid3 as p3  from  genre, (select * from movie_user where movie_user.userid='"+
+					 userid+"') g) where Myrow = 1 order by DECODE(gid, p1, 1, p2, 2, p3, 3)),movie where mid in (select director.MOVID from director, (select did as i_did from director_info where REPLACE(dKNAME, ' ', '') like REPLACE('%"+content+"%', ' ', '')  group by did) where director.did = i_did) and movie.MOVID = mid";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
 
 			while (rs.next()) {
-				list.add(new MemberVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-						rs.getString(6)));
+				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6), rs.getString(7)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				closeAll(rs, pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	public ArrayList<MemberVO> getInfo_mem_search_result2(String userid, String content) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from (select mid, gid, p1, p2, p3 from (select ROW_NUMBER() over (PARTITION BY genre.MOVID order by genre.MOVID) as Myrow, genre.MOVID as mid, genre.gid as gid, g.prefergid1 as p1, g.prefergid2 as p2, g.prefergid3 as p3  from  genre, (select * from movie_user where movie_user.userid='"+
+					 userid+"') g) where Myrow = 1 order by DECODE(gid, p1, 1, p2, 2, p3, 3)),movie where mid in (select actor.MOVID from actor, (select aid as i_aid from actor_info where REPLACE(aKNAME, ' ', '') like REPLACE('%"+content+"%', ' ', '')  group by aid) where actor.aid = i_aid) and movie.MOVID = mid";
+			System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
+
+			while (rs.next()) {
+				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6), rs.getString(7)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				closeAll(rs, pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public ArrayList<MemberVO> getInfo_mem_search_result3(String userid, String content) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = " select title, movID, genre, subTitle, score, imgURL, presum from (select mid, gid, p1, p2, p3 from (select ROW_NUMBER() over (PARTITION BY genre.MOVID order by genre.MOVID) as Myrow, genre.MOVID as mid, genre.gid as gid, g.prefergid1 as p1, g.prefergid2 as p2, g.prefergid3 as p3 from  genre, (select * from movie_user where movie_user.userid='"+userid+"') g) where Myrow = 1 order by DECODE(gid, p1, 1, p2, 2, p3, 3)), movie where mid in (movie.movid) and title like '%"+content+"%'";
+             System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // query�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
+
+			while (rs.next()) {
+				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6), rs.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1111,7 +1172,7 @@ public class MemberDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
 			pstmt = con.prepareStatement(sql);
-
+System.out.println(sql);
 			pstmt.setString(1, vo.getPasswd());
 			pstmt.setInt(2, vo.getPqid());
 			pstmt.setString(3, vo.getPasswdans());
@@ -1120,6 +1181,7 @@ public class MemberDao {
 			pstmt.setString(6, vo.getPreferGID3());
 			pstmt.setString(7, vo.getUserid());
 			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
