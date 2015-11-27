@@ -243,40 +243,14 @@ tbody {
 <table id = "boxoffice">	
 	<tr>	<th width = "80" id = "nation">한국 순위</th>	<th  width = "100">영화명</th>	</tr>
 	<tbody id = "boxoffice_kor">
-
-	<%-- 	<tr><td id = "rank"><img src="img/1.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(0, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/2.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(1, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/3.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(2, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/4.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(3, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/5.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(4, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/6.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(5, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/7.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(6, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/8.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(7, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/9.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(8, "kor")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/10.png"></td> 	<td id = "title"><a href = ""><%=box.getTitle(9, "kor")%></a></td></tr> --%>
-
 		<c:forEach items="${requestScope.bKorea}" var="kor">
 			<tr><td id = "rank"><img src="img/${kor.rank}.png"></td>		<td id = "title"><a href = "">${kor.title}</a></td></tr>
 		</c:forEach>
 	</tbody>
-
-	<tbody id = "boxoffice_usa">
-	<%-- 	<tr><td id = "rank"><img src="img/1.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(0, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/2.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(1, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/3.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(2, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/4.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(3, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/5.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(4, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/6.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(5, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/7.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(6, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/8.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(7, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/9.png"></td>		<td id = "title"><a href = ""><%=box.getTitle(8, "usa")%></a></td></tr>
-		<tr><td id = "rank"><img src="img/10.png"></td> 	<td id = "title"><a href = ""><%=box.getTitle(9, "usa")%></a></td></tr> --%>
-
 	<tbody id = "boxoffice_usa"  style="display:none">
 		<c:forEach items="${requestScope.bUsa}" var="usa">
 			<tr><td id = "rank"><img src="img/${usa.rank}.png"></td>		<td id = "title"><a href = "">${usa.title}</a></td></tr>
 		</c:forEach>
-
 	</tbody>
 </table>
 	
