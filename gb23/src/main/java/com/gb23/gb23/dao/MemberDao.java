@@ -87,7 +87,38 @@ public class MemberDao {
 		}
 	}
 
-	public void rating(MemberVO vo) {
+	/////////////////////////////////////////////////////////////////////////
+	////////////////////////// 평가한 영화 중복 체크////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////
+	public int checkratingUserMovie(MemberVO vo, int movId, int score) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int num = 0;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "select score from eval_movie where userID = '" + vo.getUserid() + "' and movID = " + movId;
+			pstmt = con.prepareStatement(sql);
+			System.out.println(sql);
+			num = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("다오의 결과값 : "+num);
+		return num;
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+	////////////////////////// 평가한 영화 평점 등록////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////
+	public void ratingUserMovie(MemberVO vo, int movId, int score) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -95,13 +126,11 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "update movie set rating=? where mv_no=?";
+			String sql = "MERGE INTO EVAL_MOVIE" + " USING DUAL ON (userid = '" + vo.getUserid() + "' and MOVID = "
+					+ movId + ")" + "WHEN MATCHED THEN UPDATE SET score = " + score
+					+ "WHEN NOT MATCHED THEN insert (userid, MOVID, score) values('" + vo.getUserid() + "', " + movId
+					+ ", " + score + ")";
 			pstmt = con.prepareStatement(sql);
-			System.out.println(vo.getRating());
-			System.out.println(vo.getTitle());
-			pstmt.setInt(1, vo.getRating());
-			pstmt.setInt(2, vo.getMv_no());
-
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("It didn't work");
@@ -114,6 +143,120 @@ public class MemberDao {
 			}
 		}
 	}
+
+	public void ratingUserActor(MemberVO vo, int movId, int score) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "MERGE INTO ACTOR_SCORE a USING (select ACTOR_INFO.aID as actorID from  ACTOR_INFO, ACTOR where ACTOR.movID = "
+					+ movId + " and ACTOR_INFO.aID = ACTOR.aID) b ON (a.userid = '" + vo.getUserid()
+					+ "' and a.aID = b.actorID) WHEN MATCHED THEN UPDATE SET a.count = (a.count+1), a.total = (a.total+"
+					+ score + ") WHEN NOT MATCHED THEN  insert values(b.actorID, '" + vo.getUserid() + "', 1, " + score
+					+ ")";
+			pstmt = con.prepareStatement(sql);
+			System.out.println(sql);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("It didn't work");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void ratingUserDirector(MemberVO vo, int movId, int score) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "MERGE INTO DIRECTOR_SCORE a  "
+					+ "USING (select DIRECTOR_INFO.DID as directorID from  DIRECTOR_INFO, DIRECTOR  where DIRECTOR.MOVID = "
+					+ movId + " and DIRECTOR_INFO.DID = DIRECTOR.DID)  b " + "ON (a.userid = '" + vo.getUserid()
+					+ "' and a.did = b.directorID) "
+					+ "WHEN MATCHED THEN  UPDATE SET a.count = (a.count+1), a.total = (a.total+" + score + ") "
+					+ "WHEN NOT MATCHED THEN  insert values(b.directorID, '" + vo.getUserid() + "', 1, " + score + ")";
+			pstmt = con.prepareStatement(sql);
+			System.out.println(sql);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("It didn't work");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void ratingUserGenre(MemberVO vo, int movId, int score) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "MERGE INTO GENRE_SCORE a "
+					+ "USING (select GENRE_INFO.gID as genreID from  GENRE_INFO, GENRE  where GENRE.MOVID = " + movId
+					+ " and GENRE_INFO.gID = GENRE.gID)  b " + "ON (a.userid = '" + vo.getUserid()
+					+ "' and a.gID = b.genreID) "
+					+ "WHEN MATCHED THEN UPDATE SET a.count = (a.count+1), a.total = (a.total+" + score + ") "
+					+ "WHEN NOT MATCHED THEN  insert values(b.genreID, '" + vo.getUserid() + "', 1, " + score + ")";
+			pstmt = con.prepareStatement(sql);
+			System.out.println(sql);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("It didn't work");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void ratingMovie(int movId, int score) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "MERGE INTO MOVIE USING DUAL ON (MOVID = " + movId
+					+ ") WHEN MATCHED THEN  UPDATE SET viewCount = (viewCount+1), totalScore = (totalScore+" + score
+					+ ") WHEN NOT MATCHED THEN  insert (MOVID, viewCount, totalScore) values (" + movId + ", 1, "
+					+ score + ")";
+			pstmt = con.prepareStatement(sql);
+			System.out.println(sql);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("It didn't work");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				closeAll(pstmt, con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	//////////////////////////////// GET-LOGIN//////////////////////////////////////////////
 
 	public MemberVO logInS(String userid) {
@@ -167,7 +310,8 @@ public class MemberDao {
 
 			if (rs.next()) {
 				System.out.println("11");
-				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getString(7), rs.getString(8));
+				vo = new MemberVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8));
 			}
 		} catch (Exception e) {
 			System.out.println("2");
@@ -222,6 +366,7 @@ public class MemberDao {
 		System.out.println("6");
 		return vo;
 	}
+
 	///////////////////// IdFind//////////////////////////////////////////////
 	public MemberVO Idfind(MemberVO vo) {
 		Connection con = null;
@@ -282,7 +427,6 @@ public class MemberDao {
 		}
 	}
 
-
 	public ArrayList<MemberVO> getInfo(String content) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		Connection con = null;
@@ -292,13 +436,15 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where REPLACE(title, ' ', '') like REPLACE('%"+content+"%', ' ', '')";
+			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where REPLACE(title, ' ', '') like REPLACE('%"
+					+ content + "%', ' ', '')";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
-				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
+				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6), rs.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -321,13 +467,15 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from genre where gid in (select gid from genre_info where REPLACE(genre, ' ', '') like REPLACE('%"+content+"%', ' ', '')))";
+			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from genre where gid in (select gid from genre_info where REPLACE(genre, ' ', '') like REPLACE('%"
+					+ content + "%', ' ', '')))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
-				list.add(new MemberVO(rs.getString(1), rs.getInt(2),rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
+				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6), rs.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -350,14 +498,16 @@ public class MemberDao {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from actor where aid in (select aid from actor_info where REPLACE(akname, ' ', '') like REPLACE('%"+content+"%', ' ', '')))";
+			String sql = "select title, movID, genre, subTitle, score, imgURL, presum from movie where MOVID in (select  movid from actor where aid in (select aid from actor_info where REPLACE(akname, ' ', '') like REPLACE('%"
+					+ content + "%', ' ', '')))";
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery(); // query占쏙옙 占쏙옙占쏙옙
 
 			while (rs.next()) {
-				list.add(new MemberVO(rs.getString(1),rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7)));
-				
+				list.add(new MemberVO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6), rs.getString(7)));
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -468,7 +618,8 @@ public class MemberDao {
 		return list;
 	}
 
-/////////////////////////////////detail_view(TABLE MOVIE)////////////////////////////////////////
+	///////////////////////////////// detail_view(TABLE
+	///////////////////////////////// MOVIE)////////////////////////////////////////
 	public ArrayList<MemberVO> getInfoMv(int movid) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		Connection con = null;
@@ -500,7 +651,8 @@ public class MemberDao {
 		return list;
 	}
 
-/////////////////////////////////detail_view(TABLE DIRECTOR)////////////////////////////////////////
+	///////////////////////////////// detail_view(TABLE
+	///////////////////////////////// DIRECTOR)////////////////////////////////////////
 	public ArrayList<MemberVO> getInfoDr(int movid) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		Connection con = null;
@@ -531,7 +683,8 @@ public class MemberDao {
 		return list;
 	}
 
-/////////////////////////////////detail_view(TABLE ACTOR)////////////////////////////////////////
+	///////////////////////////////// detail_view(TABLE
+	///////////////////////////////// ACTOR)////////////////////////////////////////
 	public ArrayList<MemberVO> getInfoAc(int movid) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		Connection con = null;
@@ -562,7 +715,8 @@ public class MemberDao {
 		return list;
 	}
 
-/////////////////////////////////detail_view(TABLE NATION)////////////////////////////////////////
+	///////////////////////////////// detail_view(TABLE
+	///////////////////////////////// NATION)////////////////////////////////////////
 	public ArrayList<MemberVO> getInfoNt(int movid) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		Connection con = null;
@@ -592,7 +746,6 @@ public class MemberDao {
 		}
 		return list;
 	}
-
 
 	///////////////////// 占쎌겫占쎌넅占쎈쾻嚥∽옙///////////////////////////
 	public void movie_register(int movID, String title, String subTitle, String summary, int score, String imgURL) {
@@ -833,66 +986,69 @@ public class MemberDao {
 		}
 		return list;
 	}
+
 	public void updateMypage(MemberVO vo) {
-		System.out.println("--------------"+vo.getUserid());
+		System.out.println("--------------" + vo.getUserid());
 		System.out.println(vo.getPreferGID1());
 		System.out.println(vo.getPreferGID2());
 		System.out.println(vo.getPreferGID3());
 		System.out.println(vo.getPasswd());
 		System.out.println(vo.getPqid());
-		System.out.println(vo.getPasswdans()+"--------------");
-		   Connection con = null;
-		   PreparedStatement pstmt = null;
-		   ResultSet rs = null;
-		   String id = null;
-		   String sql = "update movie_user set passwd=?, pqid=?, passwdans=?, preferGID1=?, preferGID2=?, preferGID3=? where userid=?";
-			try {
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setString(1, vo.getPasswd());
-				pstmt.setInt(2, vo.getPqid());
-				pstmt.setString(3, vo.getPasswdans());
-				pstmt.setString(4, vo.getPreferGID1());
-				pstmt.setString(5, vo.getPreferGID2());
-				pstmt.setString(6, vo.getPreferGID3());
-				pstmt.setString(7, vo.getUserid());
-				pstmt.executeUpdate();
-			} catch (Exception e) {
-				System.out.println(e);
-			} finally {
-				closeAll(rs, pstmt, con);
-			}
-}
-	public String delete(MemberVO vo){
-		   Connection con = null;
-		   PreparedStatement pstmt = null;
-		   String id = null;
-		   
-		   try {
-			   Class.forName("oracle.jdbc.driver.OracleDriver");
-		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
-		         String sql = "delete from movie_user where userid=?";
-		         System.out.println(sql);
-		         pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, vo.getUserid());
-					pstmt.executeUpdate();
-		   } catch (Exception e) {
-				System.out.println(e);
-			}
+		System.out.println(vo.getPasswdans() + "--------------");
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String id = null;
+		String sql = "update movie_user set passwd=?, pqid=?, passwdans=?, preferGID1=?, preferGID2=?, preferGID3=? where userid=?";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, vo.getPasswd());
+			pstmt.setInt(2, vo.getPqid());
+			pstmt.setString(3, vo.getPasswdans());
+			pstmt.setString(4, vo.getPreferGID1());
+			pstmt.setString(5, vo.getPreferGID2());
+			pstmt.setString(6, vo.getPreferGID3());
+			pstmt.setString(7, vo.getUserid());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+	}
+
+	public String delete(MemberVO vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String id = null;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			String sql = "delete from movie_user where userid=?";
+			System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getUserid());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		return id;
-	
-	   }
-	public String passhint(MemberVO vo)  {
+
+	}
+
+	public String passhint(MemberVO vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String pwd = null;
-		
+
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-	        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.99:1521:janedb", "system", "Qwer1234");
 			String sql = "select passwd from member where userid=? and passwdans=? and uname=? and pqid=?";
 			pstmt = con.prepareStatement(sql);
 
@@ -901,12 +1057,12 @@ public class MemberDao {
 			pstmt.setString(3, vo.getUname());
 			pstmt.setInt(4, vo.getPqid());
 			rs = pstmt.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				pwd = rs.getString("passwd");
-				
+
 			}
-			
-			} catch (Exception e) {
+
+		} catch (Exception e) {
 			System.out.println("not working");
 			System.out.println(e.getMessage());
 		} finally {

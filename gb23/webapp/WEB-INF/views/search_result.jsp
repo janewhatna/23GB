@@ -24,60 +24,11 @@ img#asd {
 </style>
 
 <script>
-   $(function() { // jQuery를 시작하는 데... main()
-
+   $(function() {
          $("input[name='rating']").click(function() {
-         var $input = $(this);
-         var value = $input.val(); //value
-         
-         var $parent = $input.parent( "div.btn-group" );
-         var no = $parent.attr( "data-no" ); //number of movies
-         
-         var result = "";
-         console.log("!!!!!!!!!!!! - " + value + ":" + no);
-         
-         $parent.children("input").each(function(index){
-            if(index >= value)
-            {   
-               if(index % 2 == 1)
-               {   $(this).attr("src", "img/heart_r_blur.png");   }
-               else
-               {   $(this).attr("src", "img/heart_l_blur.png");   }
-            }
-            else
-            {   
-               if(index % 2 == 1)
-               {   
-                   $(this).fadeOut(150,function(){
-                     $(this).fadeIn(800).attr("src", "img/heart_r.png");
-                         });
-               }
-               else
-               {   
-                   $(this).fadeOut(150,function(){
-                      $(this).fadeIn(800).attr("src", "img/heart_l.png");
-                         });
-                  }
-               //$(this).fadeIn(300);
-            }
-         });
-       
-         $.ajax({
-            url : "/gb23/rating_result", //url
-            data : "n=" + no + "&r=" + value, //넘겨야 할 데이터  
-            type : "get",
-            dataType : "json",
-            success : function(response) { //성고했을 때!
-                console.log(response);
-               result = response;
-            },
-            error : function(jqXHR, status, e) { //실패
-               console.error(status + " : " + e);
-            }
-         });
-         return result;
-      });
+			alert("로그인 후 이용바랍니다.");
    });
+   
    
    ///////////////////Modal 속성 지정///////////////////   
    function setModal($input)

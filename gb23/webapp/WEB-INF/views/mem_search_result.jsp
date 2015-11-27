@@ -13,60 +13,59 @@
 <script src="js/jquery-1.11.3.js"></script>
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	$(function() { // jQuery를 시작하는 데... main()
+$(function() { // jQuery를 시작하는 데... main()
 
-			$("input[name='rating']").click(function() {
-			var $input = $(this);
-			var value = $input.val(); //value
-			
-			var $parent = $input.parent( "div.btn-group" );
-			var no = $parent.attr( "data-no" ); //number of movies
-			
-			var result = "";
-			console.log("!!!!!!!!!!!! - " + value + ":" + no);
-			
-			$parent.children("input").each(function(index){
-				if(index >= value)
-				{	
-					if(index % 2 == 1)
-					{	$(this).attr("src", "img/heart_r_blur.png");	}
-					else
-					{	$(this).attr("src", "img/heart_l_blur.png");	}
-				}
-				else
-				{	
-					if(index % 2 == 1)
-					{	
-						 $(this).fadeOut(150,function(){
-							$(this).fadeIn(800).attr("src", "img/heart_r.png");
-				             });
-					}
-					else
-					{	
-						 $(this).fadeOut(150,function(){
-							 $(this).fadeIn(800).attr("src", "img/heart_l.png");
-				             });
-						}
-				}
-			});
-		 
-			$.ajax({
-				url : "/gb23/rating_result", //url
-				data : "n=" + no + "&r=" + value, //넘겨야 할 데이터  
-				type : "get",
-				dataType : "json",
-				success : function(response) { //성고했을 때!
- 					console.log(response);
-					result = response;
-				},
-				error : function(jqXHR, status, e) { //실패
-					console.error(status + " : " + e);
-				}
-			});
-			return result;
-		});
-	});
+	$("input[name='rating']").click(function() {
+	var $input = $(this);
+	var value = $input.val(); //value
 	
+	var $parent = $input.parent( "div.btn-group" );
+	var no = $parent.attr( "data-no" ); //number of movies
+	
+	var result = "";
+	console.log("!!!!!!!!!!!! - " + value + ":" + no);
+	
+	$parent.children("input").each(function(index){
+		if(index >= value)
+		{	
+			if(index % 2 == 1)
+			{	$(this).attr("src", "img/heart_r_blur.png");	}
+			else
+			{	$(this).attr("src", "img/heart_l_blur.png");	}
+		}
+		else
+		{	
+			if(index % 2 == 1)
+			{	
+				 $(this).fadeOut(150,function(){
+					$(this).fadeIn(800).attr("src", "img/heart_r.png");
+		             });
+			}
+			else
+			{	
+				 $(this).fadeOut(150,function(){
+					 $(this).fadeIn(800).attr("src", "img/heart_l.png");
+		             });
+				}
+		}
+
+	
+	$.ajax({
+		url : "/gb23/rating_result", //url
+		data : "n=" + no + "&r=" + value, //넘겨야 할 데이터  
+		type : "get",
+		dataType : "json",
+		success : function(response) { //성고했을 때!
+				if(response = 2)
+				{	alert("이미 평가한 영화입니다.");	}
+		},
+		error : function(jqXHR, status, e) { //실패
+			console.error(status + " : " + e);
+		}
+	});
+	return result;
+});
+});
 	///////////////////Modal 속성 지정///////////////////	
 	function setModal($input)
 	{
@@ -80,11 +79,6 @@
 
 <title>23GB</title>
 <style type="text/css">
-img {
-	position: absolute;
-	left: 250px;
-	top: 30px;
-}
 </style>
 <script type="text/javascript">
 function ost(){
@@ -123,7 +117,7 @@ function original(){
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 </head>
-<body onload="GetTime()">
+<body>
 	
   <!-- Navigation -->
         <nav class="navbar navbar-default navbar-custom navbar-fixed-top is-fixed is-visible">
@@ -223,7 +217,7 @@ function original(){
 	
 	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->	<!-- 하트  -->		
 		
-				<div class="btn-group" data-no="${mvo.mv_no}">
+				<div class="btn-group" data-no="${mvo.movID}">
 					<input type="image" src="img/heart_l_blur.png" name="rating" value="1"> 
 					<input type="image" src="img/heart_r_blur.png" name="rating" value="2" style="margin-left: -6.3px;"> 
 					<input type="image" src="img/heart_l_blur.png" name="rating" value="3"> 

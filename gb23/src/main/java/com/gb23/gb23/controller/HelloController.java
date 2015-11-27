@@ -244,22 +244,23 @@ return "/WEB-INF/views/main.jsp";
 	////////////////////////////////////RATING RESULT /////////////////////////////////////////////////////////		
 	@ResponseBody
 	@RequestMapping("/rating_result")
-	public  Object rResult(@RequestParam("n") int no, 
-								@RequestParam("r") int rating ){
-	
-		System.out.println( no + ":" + rating );
-		MemberVO mvo = new MemberVO();
-		mvo.setMv_no(no);
-		mvo.setRating(rating);
-		dao.rating(mvo); 
+	public int rResult(@RequestParam("n") int no, @RequestParam("r") int rating, MemberVO vo, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		vo = (MemberVO)session.getAttribute("loginInfo");
+
+		int result = dao.checkratingUserMovie(vo, no, rating);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put( "result", "ok" );
-		map.put( "rating", rating );
-		map.put("no:", no);
-		return map;
+		if(result == 0)
+		{
+			dao.ratingUserMovie(vo, no, rating); 
+			dao.ratingUserActor(vo, no, rating); 
+			dao.ratingUserDirector(vo, no, rating); 
+			dao.ratingUserGenre(vo, no, rating); 
+			dao.ratingMovie(no, rating); 
+		}
+		
+		return result;
 	}
-	
 	
 ////////////////////////////////////URL FOR OST&ORIGINAL /////////////////////////////////////////////////////////		
 	@RequestMapping("/url")
